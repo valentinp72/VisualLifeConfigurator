@@ -35,9 +35,11 @@
             android:background="?android:attr/listDivider" />
 
         <fr.ttvp.visuallifeconfigurator.AutomataCellInListView
-            android:id="@+id/automataCellInListView2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+        </fr.ttvp.visuallifeconfigurator.AutomataCellInListView>
+
 
     </LinearLayout>
 
