@@ -1,0 +1,23 @@
+
+<fr.ttvp.visuallifeconfigurator.AutomataCellInListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></fr.ttvp.visuallifeconfigurator.AutomataCellInListView>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/default_text" />
+
+            <fr.ttvp.visuallifeconfigurator.AutomataCellInListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </fr.ttvp.visuallifeconfigurator.AutomataCellInListView>
+
+            <fr.ttvp.visuallifeconfigurator.AutomataCellInListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></fr.ttvp.visuallifeconfigurator.AutomataCellInListView>
+
+            <fr.ttvp.visuallifeconfigurator.AutomataCellInListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></fr.ttvp.visuallifeconfigurator.AutomataCellInListView>
