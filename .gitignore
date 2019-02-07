@@ -65,3 +65,9 @@ fastlane/test_output
 fastlane/readme.md
 
 *.DS_Store
+*.aux
+*.log
+*.synctex.gz
+*.toc
+*.lock
+*.bak
