@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
@@ -22,24 +23,30 @@
             android:layout_height="wrap_content"
             android:text="@string/default_text" />
 
-        <Button
-            android:id="@+id/button8"
+        <fr.ttvp.visuallifeconfigurator.AutomataCellInListView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
+            android:layout_height="wrap_content">
+        </fr.ttvp.visuallifeconfigurator.AutomataCellInListView>
 
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="2dp"
             android:background="?android:attr/listDivider" />
 
         <fr.ttvp.visuallifeconfigurator.AutomataCellInListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
         </fr.ttvp.visuallifeconfigurator.AutomataCellInListView>
 
+        <fr.ttvp.visuallifeconfigurator.AutomataCellInListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </fr.ttvp.visuallifeconfigurator.AutomataCellInListView>
+        <fr.ttvp.visuallifeconfigurator.AutomataCellInListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </fr.ttvp.visuallifeconfigurator.AutomataCellInListView>
 
     </LinearLayout>
 

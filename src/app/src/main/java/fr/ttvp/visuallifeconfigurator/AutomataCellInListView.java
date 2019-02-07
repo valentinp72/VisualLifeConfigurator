@@ -37,7 +37,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class AutomataCellInListView extends RelativeLayout {
+public class AutomataCellInListView extends LinearLayout {
 
     private ImageButton moveButton;
 
@@ -47,7 +47,7 @@ public class AutomataCellInListView extends RelativeLayout {
         //setOrientation(LinearLayout.HORIZONTAL);
         //setGravity(Gravity.CENTER_VERTICAL);
 
-        //inflater.inflate(R.layout.view_color_options, this, true);
+        //inflater.inflate(R.layout.sample_automata_cell_in_list_view, this, true);
     }
 
     public AutomataCellInListView(Context context) {
@@ -56,8 +56,11 @@ public class AutomataCellInListView extends RelativeLayout {
     }
 
     private void init(AttributeSet set){
-        inflate(getContext(), R.layout.sample_automata_cell_in_list_view, this);
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        inflater.inflate(R.layout.sample_automata_cell_in_list_view, this);
+
         this.moveButton = (ImageButton) findViewById(R.id.moveButton);
+        System.out.println(this.moveButton);
     }
 
 
