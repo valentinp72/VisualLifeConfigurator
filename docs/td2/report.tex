@@ -75,50 +75,63 @@
 
 \begin{document}
 
-
-%%%%%%%%%%%
-%  Page de garde  %
-%%%%%%%%%%%
 \begin{titlepage}
 
 
-		\begin{spacing}{1.5}
-			\begin{minipage}{0.4\textwidth}
-					\includegraphics[width=3cm]{logo.png}\\
-					Programmation interfaces embarquees\\
-					Master Informatique – 1ere annee
-			\end{minipage}
-						\vspace*{\fill}
+\textbf{Le Mans Université}
+\begin{flushright}
+\hspace{6cm} \textit{UFR Sciences et Techniques}
+\\
+\textit{Département Informatique}
+\end{flushright}
 
-		\end{spacing}
-	
+\vskip1cm
+\begin{center}
+%% Pour redéfinir la distance entre la boite et le texte
+\fboxsep6mm
+%% Pour redéfinir l'épaisseur de la boite
+\fboxrule1.3pt
 
-	
-	\begin{center}
-		\begin{spacing}{2}
-		    \hrule \vspace{1cm}
-			\textbf{\Huge Android Project}\\[0.5cm]
-			...
-			\vspace{1cm}
-			\hrule
+\vspace{2cm}
 
-			\vspace*{\fill}
-		\end{spacing}
+%% Le \vphantom{\int_\int} sert à introduire de l'espace entre les deux lignes
+%% (essayez donc de le commenter)
+$$\fbox{$
+  \begin{array}{c}
+  \textbf{ANDROID APPLICATION}
+  \\
+  \textbf{REPORT}
+  \vphantom{\int_\int}
+  \\
+  \textbf{Programmation d'interfaces embarquées}
+  \\
+  \textbf{Master 1 Informatique}
+  \\
+  \textbf{2018/2019}
+  \\
+  \\
+  \\
+  \textit{Teyssier Titouan, Pelloin Valentin}
+  \end{array}
+  $}
+$$
+\end{center}
 
-		\begin{spacing}{1.15}
-			\vspace{12pt}
-			Students: \\
-			\textsc{Teyssier} Titouan\\
-			\textsc{Pelloin} Valentin\\
-			\vspace*{\fill}
-		\end{spacing}
+\vspace{2cm}
 
-		\begin{spacing}{1.15}
-			\today
-			\vspace*{\fill}
-		\end{spacing}
-		
-	\end{center}
+\begin{center}
+   \vspace{12pt}
+   \today
+\end{center}
+
+\vspace{4cm}
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=5cm]{logo.png}
+\end{figure}
+
+
 \end{titlepage}
 
 
@@ -128,7 +141,7 @@
 
 \chapter{Our application : Visual Life Configurator}
 Our application is a cellular automaton simulation game. The player is free to create new automatons with the rules we want (for example Conway's game of life, Wireworld, ...).
-For each automaton, the player configures how the automaton work, the types of cells, how neighbours are calculated, and the rules for a cell to be transformed into an other one.\\
+For each automaton, the player configures how the automaton work, the types of cells, how neighbours are calculated, and the rules for a cell to be transformed into another one.\\
 Then, the player can create as many worlds he wants, edit them, and play with them.\\
 Our application is called \texttt{VLC}, it stands for Visual Life Configurator.
 
@@ -136,19 +149,22 @@ Our application is called \texttt{VLC}, it stands for Visual Life Configurator.
 
 \paragraph{Name}
 John Doe
+\paragraph{Age}
+21
 \paragraph{About}
-John studies computer science. He is interested into algorithms and life simulation. John likes playing games on his phone while waiting for his bus before going to the University.
+John studies computer science. He is interested into algorithms and life simulation. John likes playing games on his phone while waiting for his bus while going to the University.
 \paragraph{Goals}
 \begin{itemize}
 \item Learn new things
-\item S
+\item Build things with Legos
 \end{itemize}
 
 \section{User stories}
 \begin{itemize}
 	\item As a player, I want to entertain myself by playing a game ;
-	\item As a user, I want to learn new ;
-	\item As a player, I want to experiment new configurations of cellular automatons
+	\item As a player, I want to learn new automaton rules ;
+	\item As a player, I want to experiment new configurations of cellular automatons ;
+	\item As a player, I want to express myself by creating and building worlds
 \end{itemize}
 
 \chapter{Functional study}
@@ -171,7 +187,7 @@ Below, the mock-ups of our application:
     \includegraphics[width=\linewidth]{../mock-ups/Cells.png}
   \end{minipage}\hfill
   \begin{minipage}{.45\linewidth}
-    \captionof{figure}{Inside a automaton, cells tab. \\ The player can create and remove cells types for this automaton. He can reorganize the order of the cells. The first cell type is the default one, the type of the cell that will fill the grid when creating a blank world.}
+    \captionof{figure}{Inside a automaton, cells tab. \\ The player can create and remove cell types for this automaton. He can reorganize the order of the cells. The first cell type is the default one, the type of the cell that will fill the grid when creating a blank world.}
   \end{minipage}%
 \end{minipage} \hfill
 
@@ -181,7 +197,7 @@ Below, the mock-ups of our application:
     \includegraphics[width=\linewidth]{../mock-ups/Configuration.png}
   \end{minipage}\hfill
   \begin{minipage}{.45\linewidth}
-    \captionof{figure}{Inside a automaton, configuration tab. \\ In this tab, the player can access the configuration for each cell.}
+    \captionof{figure}{Inside an automaton, configuration tab. \\ In this tab, the player can access the configuration for each cell.}
   \end{minipage}%
 \end{minipage} \hfill
 \begin{minipage}{.45\textwidth}
@@ -189,7 +205,7 @@ Below, the mock-ups of our application:
     \includegraphics[width=\linewidth]{../mock-ups/Play.png}
   \end{minipage}\hfill
   \begin{minipage}{.45\linewidth}
-    \captionof{figure}{Inside a automaton, play tab. \\ In this tab, the user can access to it's saved games. He can also choose to play on a random world.}
+    \captionof{figure}{Inside an automaton, play tab. \\ In this tab, the user can access to its saved games. He can also choose to play on a random world.}
   \end{minipage}%
 \end{minipage} \hfill
 
@@ -199,7 +215,7 @@ Below, the mock-ups of our application:
     \includegraphics[width=\linewidth]{../mock-ups/Electron_head.png}
   \end{minipage}\hfill
   \begin{minipage}{.45\linewidth}
-    \captionof{figure}{Cell parameter activity. \\ For this specific cell type, the user can edit its name, its color. He can also access to the neighbours choosing screen.}
+    \captionof{figure}{Cell parameter activity. \\ For this specific cell type, the user can edit its name, and its color. He can also access to the neighbours choosing screen.}
   \end{minipage}%
 \end{minipage} \hfill
 \begin{minipage}{.45\textwidth}
@@ -217,7 +233,7 @@ Below, the mock-ups of our application:
     \includegraphics[width=\linewidth]{../mock-ups/Electron_head_configuration.png}
   \end{minipage}\hfill
   \begin{minipage}{.45\linewidth}
-    \captionof{figure}{Cell type rule edition. \\ For this cell type (blue one), the player configured the rules of transformation. For example, if there are 8 neighbours around a blue cell, it will be transformed to a yellow cell in the next generation.}
+    \captionof{figure}{Cell type rules edition. \\ For this cell type (blue one), the player configured the rules of transformation. For example, if there are 8 neighbours around a blue cell, it will be transformed to a yellow cell in the next generation.}
   \end{minipage}%
 \end{minipage} \hfill
 \begin{minipage}{.45\textwidth}
@@ -225,7 +241,7 @@ Below, the mock-ups of our application:
     \includegraphics[width=\linewidth]{../mock-ups/Saved.png}
   \end{minipage}\hfill
   \begin{minipage}{.45\linewidth}
-    \captionof{figure}{List of saved games. \\ The player can list worlds that are existing for a automaton. For each world, he can edit it, or play on it. By clicking on the "plus" button, e can also create a new blank world.}
+    \captionof{figure}{List of saved games. \\ The player can list worlds that are existing for an automaton. For each world, he can edit it, or play on it. By clicking on the "plus" button, he can also create a new blank world.}
   \end{minipage}%
 \end{minipage} \hfill
 
@@ -266,10 +282,19 @@ Below, the mock-ups of our application:
 \end{minipage} \hfill
 
 \vspace{12pt}
-It is possible to view a demonstration of these mock-ups by clicking on this
+A demonstration of these mock-ups can be seen at \url{https://github.com/valentinp72/VisualLifeConfigurator/blob/master/docs/mock-ups/demo.mp4?raw=true}.
 
+
+\newpage
 \section{Architecture}
-d
+
+Our project architecture is based on an MVC (Model-View-Controller) pattern. Below, a class diagram of it.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{../class_diagram.png}
+	\caption{Class diagram of our application}
+\end{figure}
 
 \section{Github link}
 Our project is accessible at \url{https://github.com/valentinp72/VisualLifeConfigurator}.
