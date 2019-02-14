@@ -1,0 +1,13 @@
+1st line : id
+2nd line : name
+3rd line : cellCount
+next cellCount lines:
+	1st  : idC
+	2nd  : name
+	3rd  : r g b (3 space separated integers)
+	5th  : neighborCount
+	4th  : id1 id2 ... (space separated integers representing the cells to count)
+	6th  : id1 id2 ... idneighborCount (neighborCount + 1 space separated integer representing the transitions)
+	next neighborCount lines: dl dc (two space separated integers)
+
+

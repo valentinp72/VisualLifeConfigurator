@@ -1,0 +1,2 @@
+1st line: lineCount colCount
+next lineCount lines: colCount space separated integers, each referencing a cell by its id
