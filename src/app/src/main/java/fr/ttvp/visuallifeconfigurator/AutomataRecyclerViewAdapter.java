@@ -1,7 +1,9 @@
 package fr.ttvp.visuallifeconfigurator;
 
+import android.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -28,12 +30,15 @@ public class AutomataRecyclerViewAdapter extends RecyclerView.Adapter<AutomataRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.textView.setText(mValues.get(position));
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        System.out.println("Nous: hello " + mValues.get(position));
+        System.out.println("Nous: " + holder.mView.toString());
+
+        /*holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("ahaha");
+                System.out.println("Nous: click");
             }
-        });
+        });*/
     }
 
     @Override
@@ -50,6 +55,13 @@ public class AutomataRecyclerViewAdapter extends RecyclerView.Adapter<AutomataRe
             super(view);
             mView = view;
             textView = view.findViewById(R.id.fragment_automata_button);
+
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    System.out.println("Nous: hehehe");
+                }
+            });
         }
 
         @Override

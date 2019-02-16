@@ -1,5 +1,6 @@
 package fr.ttvp.visuallifeconfigurator;
 
+import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.ttvp.visuallifeconfigurator.dummy.DummyContent;
+import fr.ttvp.visuallifeconfigurator.model.Persitance;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,8 +33,16 @@ public class MainActivity extends AppCompatActivity {
         contents.add("Wireworld");
         contents.add("Conway");
         contents.add("My world");
+        contents.add("Titouan");
 
         mRecyclerView.setAdapter(new AutomataRecyclerViewAdapter(contents));
+
+        AssetManager assetManager = getAssets();
+        Persitance persitance = Persitance.getInstance();
+        persitance.setAssetManager(assetManager);
+
+        persitance.getAutomataLights();
+
     }
 
 
