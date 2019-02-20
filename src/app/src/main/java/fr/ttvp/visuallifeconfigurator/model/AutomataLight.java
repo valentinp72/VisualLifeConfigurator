@@ -1,6 +1,8 @@
 package fr.ttvp.visuallifeconfigurator.model;
 
-public class AutomataLight {
+import java.io.Serializable;
+
+public class AutomataLight implements Serializable {
 
     private static long idTotal = 0;
 

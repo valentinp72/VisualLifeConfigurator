@@ -1,5 +1,6 @@
 package fr.ttvp.visuallifeconfigurator;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

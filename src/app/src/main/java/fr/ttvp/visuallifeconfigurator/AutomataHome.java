@@ -20,6 +20,12 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import java.util.Arrays;
+
+import fr.ttvp.visuallifeconfigurator.model.Automata;
+import fr.ttvp.visuallifeconfigurator.model.AutomataLight;
+import fr.ttvp.visuallifeconfigurator.model.Persitance;
+
 public class AutomataHome extends AppCompatActivity {
 
     /**
@@ -56,6 +62,16 @@ public class AutomataHome extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        AutomataLight al = (AutomataLight) getIntent().getSerializableExtra("AutomataLight");
+
+        Automata a = Persitance.getInstance().getAutomata(al);
+        System.out.println(a);
+        System.out.println(a.getCells().get(0).getCellsToCount());
+        System.out.println(a.getCells().get(0).getNeighbours());
+        System.out.println(Arrays.toString(a.getCells().get(0).getTransitions()));
+
+        toolbar.setTitle(al.getName());
     }
 
 
@@ -82,7 +98,6 @@ public class AutomataHome extends AppCompatActivity {
         public HomeTabCells() {
             Bundle args = new Bundle();
             this.setArguments(args);
-            System.out.println("creation");
 
             /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +112,6 @@ public class AutomataHome extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_automata_home_cells, container, false);
-            System.out.println("oncreateview");
 
             return view;
         }

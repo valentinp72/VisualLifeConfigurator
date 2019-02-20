@@ -1,9 +1,8 @@
 package fr.ttvp.visuallifeconfigurator;
 
-import android.app.AlertDialog;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -14,6 +13,8 @@ import java.util.List;
 import fr.ttvp.visuallifeconfigurator.model.Automata;
 import fr.ttvp.visuallifeconfigurator.model.AutomataLight;
 import fr.ttvp.visuallifeconfigurator.model.Persitance;
+
+import static android.support.v4.content.ContextCompat.startActivity;
 
 
 public class AutomataRecyclerViewAdapter extends RecyclerView.Adapter<AutomataRecyclerViewAdapter.ViewHolder> {
@@ -39,12 +40,10 @@ public class AutomataRecyclerViewAdapter extends RecyclerView.Adapter<AutomataRe
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Automata a = Persitance.getInstance().getAutomata(al);
-                System.out.println(a);
-                System.out.println(a.getCells().get(0).getCellsToCount());
-                System.out.println(a.getCells().get(0).getNeighbours());
-                System.out.println(Arrays.toString(a.getCells().get(0).getTransitions()));
-
+                // open the automata activity and gives it the light automata
+                Intent intent = new Intent(v.getContext(), AutomataHome.class);
+                intent.putExtra("AutomataLight", al);
+                v.getContext().startActivity(intent);
             }
         });
     }
