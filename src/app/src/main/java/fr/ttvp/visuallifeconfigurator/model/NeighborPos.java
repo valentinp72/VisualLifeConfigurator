@@ -10,6 +10,10 @@ class NeighborPos {
         this.deltaY = deltaY;
     }
 
+    public String toString() {
+        return "dX = " + deltaX + " | dY = " + deltaY;
+    }
+
     public int getDeltaY() {
         return deltaY;
     }

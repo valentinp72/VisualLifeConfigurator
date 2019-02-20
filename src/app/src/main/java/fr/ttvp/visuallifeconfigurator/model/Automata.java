@@ -5,26 +5,22 @@ import java.util.List;
 
 public class Automata {
 
-    private AutomataLight automata;
+    private AutomataLight automataLight;
     private List<Cell> cells;
-    private List<Map>  maps;
     private boolean isDefault;
 
-    public Automata() {
-        this.automata = automata;
-        this.cells    = new ArrayList<>();
-        this.maps     = new ArrayList<>();
-        this.isDefault = false;
+    public Automata(AutomataLight automataLight, boolean isDefault, List<Cell> cells) {
+        this.automataLight = automataLight;
+        this.cells         = cells;
+        this.isDefault     = isDefault;
     }
 
-    public Automata(long id) {
-        // chargement d'un automate à partir d'un id,
-        // les données seront recherchés dans les fichiers
-
+    public String toString() {
+        return "Automata: " + automataLight.toString() + " " + cells + " " + isDefault;
     }
 
-    public void serialize() {
-
+    public List<Cell> getCells() {
+        return cells;
     }
 
 }

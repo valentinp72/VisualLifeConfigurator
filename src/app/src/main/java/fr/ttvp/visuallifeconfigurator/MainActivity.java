@@ -28,20 +28,12 @@ public class MainActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        // specify an adapter (see also next example)
-        List<String> contents = new ArrayList<String>();
-        contents.add("Wireworld");
-        contents.add("Conway");
-        contents.add("My world");
-        contents.add("Titouan");
-
-        mRecyclerView.setAdapter(new AutomataRecyclerViewAdapter(contents));
-
         AssetManager assetManager = getAssets();
         Persitance persitance = Persitance.getInstance();
         persitance.setAssetManager(assetManager);
 
-        persitance.getAutomataLights();
+        mRecyclerView.setAdapter(new AutomataRecyclerViewAdapter(persitance.getAutomataLights()));
+
 
     }
 

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<automata>
+
+    <id>0</id>
+    <name>Conways's game of Life</name>
+    <default>true</default>
+
+    <cell>
+        <id>0</id>
+        <name>Alive</name>
+        <color>#000000</color>
+        <neighourIdToCount>1</neighourIdToCount>
+        <transition nbNeighbours="0" become="0" />
+        <transition nbNeighbours="1" become="0" />
+        <transition nbNeighbours="2" become="1" />
+        <transition nbNeighbours="3" become="1" />
+        <transition nbNeighbours="4" become="0" />
+        <transition nbNeighbours="5" become="0" />
+        <transition nbNeighbours="6" become="0" />
+        <transition nbNeighbours="7" become="0" />
+        <transition nbNeighbours="8" become="0" />
+        <neighbourCoord x="-1" y="-1"/>
+        <neighbourCoord x="-1" y="0" />
+        <neighbourCoord x="-1" y="0" />
+        <neighbourCoord x="0"  y="-1"/>
+        <neighbourCoord x="0"  y="1" />
+        <neighbourCoord x="1"  y="-1"/>
+        <neighbourCoord x="1"  y="0" />
+        <neighbourCoord x="1"  y="1" />
+    </cell>
+
+    <cell>
+        <id>1</id>
+        <name>Dead</name>
+        <color>#ffffff</color>
+        <neighourIdToCount>1</neighourIdToCount>
+        <transition nbNeighbours="0" become="0" />
+        <transition nbNeighbours="1" become="0" />
+        <transition nbNeighbours="2" become="0" />
+        <transition nbNeighbours="3" become="1" />
+        <transition nbNeighbours="4" become="0" />
+        <transition nbNeighbours="5" become="0" />
+        <transition nbNeighbours="6" become="0" />
+        <transition nbNeighbours="7" become="0" />
+        <transition nbNeighbours="8" become="0" />
+        <neighbourCoord x="-1" y="-1"/>
+        <neighbourCoord x="-1" y="0" />
+        <neighbourCoord x="-1" y="0" />
+        <neighbourCoord x="0"  y="-1"/>
+        <neighbourCoord x="0"  y="1" />
+        <neighbourCoord x="1"  y="-1"/>
+        <neighbourCoord x="1"  y="0" />
+        <neighbourCoord x="1"  y="1" />
+    </cell>
+
+</automata>

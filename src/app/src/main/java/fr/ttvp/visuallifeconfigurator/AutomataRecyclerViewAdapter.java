@@ -8,14 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Arrays;
 import java.util.List;
+
+import fr.ttvp.visuallifeconfigurator.model.Automata;
+import fr.ttvp.visuallifeconfigurator.model.AutomataLight;
+import fr.ttvp.visuallifeconfigurator.model.Persitance;
 
 
 public class AutomataRecyclerViewAdapter extends RecyclerView.Adapter<AutomataRecyclerViewAdapter.ViewHolder> {
 
-    private final List<String> mValues;
+    private final List<AutomataLight> mValues;
 
-    public AutomataRecyclerViewAdapter(List<String> items) {
+    public AutomataRecyclerViewAdapter(List<AutomataLight> items) {
         mValues = items;
     }
 
@@ -27,18 +32,21 @@ public class AutomataRecyclerViewAdapter extends RecyclerView.Adapter<AutomataRe
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.textView.setText(mValues.get(position));
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        final AutomataLight al = mValues.get(position);
 
-        System.out.println("Nous: hello " + mValues.get(position));
-        System.out.println("Nous: " + holder.mView.toString());
-
-        /*holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.textView.setText(al.getName());
+        holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Nous: click");
+                Automata a = Persitance.getInstance().getAutomata(al);
+                System.out.println(a);
+                System.out.println(a.getCells().get(0).getCellsToCount());
+                System.out.println(a.getCells().get(0).getNeighbours());
+                System.out.println(Arrays.toString(a.getCells().get(0).getTransitions()));
+
             }
-        });*/
+        });
     }
 
     @Override
@@ -55,13 +63,6 @@ public class AutomataRecyclerViewAdapter extends RecyclerView.Adapter<AutomataRe
             super(view);
             mView = view;
             textView = view.findViewById(R.id.fragment_automata_button);
-
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    System.out.println("Nous: hehehe");
-                }
-            });
         }
 
         @Override

@@ -4,8 +4,8 @@ public class AutomataLight {
 
     private static long idTotal = 0;
 
-    private String name;
-    private long id;
+    private final String name;
+    private final long id;
 
     public AutomataLight(String name, long id) {
         this.name = name;
@@ -17,10 +17,15 @@ public class AutomataLight {
     }
 
     public Automata getRealAutomata() {
-        return new Automata();
+        return null;
+        //return new Automata();
     }
 
     public String getName() {
         return name;
+    }
+
+    public long getId() {
+        return id;
     }
 }

@@ -1,6 +1,6 @@
 0
 Conways's game of Life
-1
+true
 2
 0
 Dead

@@ -1,5 +1,6 @@
 package fr.ttvp.visuallifeconfigurator.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cell {
@@ -7,7 +8,49 @@ public class Cell {
     private String name;
     private String color;
     private List<NeighborPos> neighbours;
-    private List<Integer> cellsToCount;
+    private List<Cell> cellsToCount;
+    private Cell[] transitions;
 
+    public Cell() {
+        this.name  = "Undefined";
+        this.color = "#ffffff";
+        this.neighbours   = new ArrayList<>();
+        this.cellsToCount = new ArrayList<>();
+    }
 
+    public String toString() {
+        return name + ": " + color;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public List<NeighborPos> getNeighbours() {
+        return neighbours;
+    }
+
+    public List<Cell> getCellsToCount() {
+        return cellsToCount;
+    }
+
+    public Cell[] getTransitions() {
+        return transitions;
+    }
+
+    public void setTransitions(Cell[] transitions) {
+        this.transitions = transitions;
+    }
 }
