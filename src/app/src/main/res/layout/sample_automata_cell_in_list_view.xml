@@ -5,6 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:orientation="horizontal"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@drawable/selectors"
     android:gravity="center_vertical">
 
         <ImageButton
@@ -17,15 +20,14 @@
             app:srcCompat="@drawable/ic_menu_black_24dp" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/cellText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="#000000"
-            android:text="Electron head" />
+            android:textColor="#000000" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/cellImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"

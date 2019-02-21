@@ -13,9 +13,9 @@
 
         <LinearLayout
             android:padding="20dp"
-            android:id="@+id/linearLayout"
+            android:id="@+id/contents"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -29,27 +29,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/default_text" />
 
-            <fr.ttvp.visuallifeconfigurator.AutomataCellInListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></fr.ttvp.visuallifeconfigurator.AutomataCellInListView>
-
             <View
                 android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />
 
-            <fr.ttvp.visuallifeconfigurator.AutomataCellInListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></fr.ttvp.visuallifeconfigurator.AutomataCellInListView>
-
-
-            <fr.ttvp.visuallifeconfigurator.AutomataCellInListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></fr.ttvp.visuallifeconfigurator.AutomataCellInListView>
-            <fr.ttvp.visuallifeconfigurator.AutomataCellInListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></fr.ttvp.visuallifeconfigurator.AutomataCellInListView>
         </LinearLayout>
 
     </ScrollView>

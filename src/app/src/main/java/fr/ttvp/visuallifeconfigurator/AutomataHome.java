@@ -18,12 +18,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Arrays;
 
 import fr.ttvp.visuallifeconfigurator.model.Automata;
 import fr.ttvp.visuallifeconfigurator.model.AutomataLight;
+import fr.ttvp.visuallifeconfigurator.model.Cell;
 import fr.ttvp.visuallifeconfigurator.model.Persitance;
 
 public class AutomataHome extends AppCompatActivity {
@@ -37,6 +40,8 @@ public class AutomataHome extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+
+    private Automata automata;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -53,7 +58,7 @@ public class AutomataHome extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -63,15 +68,10 @@ public class AutomataHome extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        AutomataLight al = (AutomataLight) getIntent().getSerializableExtra("AutomataLight");
+        automata = ((AutomataLight) getIntent().getSerializableExtra("AutomataLight")).getRealAutomata();
+        System.out.println(automata);
 
-        Automata a = Persitance.getInstance().getAutomata(al);
-        System.out.println(a);
-        System.out.println(a.getCells().get(0).getCellsToCount());
-        System.out.println(a.getCells().get(0).getNeighbours());
-        System.out.println(Arrays.toString(a.getCells().get(0).getTransitions()));
-
-        toolbar.setTitle(al.getName());
+        toolbar.setTitle(automata.getName());
     }
 
 
@@ -92,13 +92,24 @@ public class AutomataHome extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public Automata getAutomata() {
+        return this.automata;
+    }
 
     public static class HomeTabCells extends Fragment {
 
-        public HomeTabCells() {
-            Bundle args = new Bundle();
-            this.setArguments(args);
+        private Automata automata;
 
+        public static HomeTabCells createInstance(Automata automata) {
+            HomeTabCells htc = new HomeTabCells();
+            Bundle args = new Bundle();
+            args.putSerializable("Automata", automata);
+            htc.setArguments(args);
+            return htc;
+        }
+
+        public HomeTabCells() {
+            super();
             /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -109,10 +120,27 @@ public class AutomataHome extends AppCompatActivity {
             });*/
         }
 
+        @Override
+        public void onCreate(Bundle b) {
+            super.onCreate(b);
+            automata = (Automata) getArguments().getSerializable("Automata");
+        }
+
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_automata_home_cells, container, false);
+            System.out.println(automata.getName());
+            LinearLayout ll = view.findViewById(R.id.contents);
 
+            for (Cell cell : automata.getCells()) {
+                View toAdd = new AutomataCellInListView(view.getContext(), automata, cell);
+                if(cell.isDefaultCell()) {
+                    ll.addView(toAdd, 1);
+                }
+                else {
+                    ll.addView(toAdd);
+                }
+            }
             return view;
         }
     }
@@ -128,6 +156,7 @@ public class AutomataHome extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_automata_home_configuration, container, false);
 
+            //ll.addView(new AutomataCellInListView(view.getContext()));
             return view;
         }
     }
@@ -154,16 +183,21 @@ public class AutomataHome extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        private AutomataHome automataHome;
+
+        public SectionsPagerAdapter(AutomataHome automataHome, FragmentManager fm) {
             super(fm);
+            this.automataHome = automataHome;
         }
 
         @Override
         public Fragment getItem(int position) {
+            Automata automata = automataHome.getAutomata();
+
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             if(position == 0) {
-                return new HomeTabCells();
+                return HomeTabCells.createInstance(automata);
             }
             else if(position == 1) {
                 return new HomeTabConfiguration();
@@ -171,6 +205,7 @@ public class AutomataHome extends AppCompatActivity {
             else {
                 return new HomeTabPlay();
             }
+
         }
 
         @Override

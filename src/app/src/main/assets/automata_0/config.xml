@@ -7,9 +7,10 @@
 
     <cell>
         <id>0</id>
+        <default>false</default>
         <name>Alive</name>
-        <color>#000000</color>
-        <neighourIdToCount>1</neighourIdToCount>
+        <color>#ffffff</color>
+        <neighbourIdToCount>1</neighbourIdToCount>
         <transition nbNeighbours="0" become="0" />
         <transition nbNeighbours="1" become="0" />
         <transition nbNeighbours="2" become="1" />
@@ -31,9 +32,10 @@
 
     <cell>
         <id>1</id>
+        <default>true</default>
         <name>Dead</name>
-        <color>#ffffff</color>
-        <neighourIdToCount>1</neighourIdToCount>
+        <color>#000000</color>
+        <neighbourIdToCount>1</neighbourIdToCount>
         <transition nbNeighbours="0" become="0" />
         <transition nbNeighbours="1" become="0" />
         <transition nbNeighbours="2" become="0" />

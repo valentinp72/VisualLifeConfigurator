@@ -9,6 +9,8 @@ public class AutomataLight implements Serializable {
     private final String name;
     private final long id;
 
+    public static final AutomataLight UNKNOWN_AUTOMATA = new AutomataLight("Unknown", -1);
+
     public AutomataLight(String name, long id) {
         this.name = name;
         this.id = id;
@@ -19,8 +21,7 @@ public class AutomataLight implements Serializable {
     }
 
     public Automata getRealAutomata() {
-        return null;
-        //return new Automata();
+        return Persitance.getInstance().getAutomata(this);
     }
 
     public String getName() {

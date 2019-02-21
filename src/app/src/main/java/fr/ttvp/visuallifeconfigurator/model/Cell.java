@@ -1,19 +1,22 @@
 package fr.ttvp.visuallifeconfigurator.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cell {
+public class Cell implements Serializable {
 
     private String name;
     private String color;
     private List<NeighborPos> neighbours;
     private List<Cell> cellsToCount;
     private Cell[] transitions;
+    private boolean defaultCell;
 
     public Cell() {
         this.name  = "Undefined";
         this.color = "#ffffff";
+        this.defaultCell  = false;
         this.neighbours   = new ArrayList<>();
         this.cellsToCount = new ArrayList<>();
     }
@@ -52,5 +55,13 @@ public class Cell {
 
     public void setTransitions(Cell[] transitions) {
         this.transitions = transitions;
+    }
+
+    public boolean isDefaultCell() {
+        return defaultCell;
+    }
+
+    public void setDefaultCell(boolean defaultCell) {
+        this.defaultCell = defaultCell;
     }
 }

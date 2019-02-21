@@ -1,32 +1,8 @@
 package fr.ttvp.visuallifeconfigurator;
 
-/*import android.content.Context;
-import android.util.AttributeSet;
-import android.view.View;
-import android.widget.LinearLayout;
-
-public class AutomataCellInListView extends LinearLayout {
-
-    public AutomataCellInListView(Context context) {
-        super(context);
-    }
-
-    public AutomataCellInListView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public AutomataCellInListView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
-
-}
-*/
-
-
-//import com.vogella.android.view.compoundview.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -37,30 +13,42 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import fr.ttvp.visuallifeconfigurator.model.Automata;
+import fr.ttvp.visuallifeconfigurator.model.Cell;
+
 public class AutomataCellInListView extends LinearLayout {
 
+    private Automata automata;
+    private Cell cell;
+
     private ImageButton moveButton;
+    private TextView cellText;
+    private ImageView cellImage;
 
-    public AutomataCellInListView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(attrs);
-        //setOrientation(LinearLayout.HORIZONTAL);
-        //setGravity(Gravity.CENTER_VERTICAL);
-
-        //inflater.inflate(R.layout.sample_automata_cell_in_list_view, this, true);
+    public AutomataCellInListView(Context context, Automata automata, Cell cell) {
+        super(context, null);
+        this.automata = automata;
+        this.cell = cell;
+        init();
     }
 
-    public AutomataCellInListView(Context context) {
-        this(context, null);
-        init(null);
-    }
-
-    private void init(AttributeSet set){
+    private void init(){
         LayoutInflater inflater = LayoutInflater.from(getContext());
         inflater.inflate(R.layout.sample_automata_cell_in_list_view, this);
 
-        this.moveButton = (ImageButton) findViewById(R.id.moveButton);
-        System.out.println(this.moveButton);
+        this.moveButton = findViewById(R.id.moveButton);
+        this.cellText   = findViewById(R.id.cellText);
+        this.cellImage  = findViewById(R.id.cellImage);
+
+        cellText.setText(cell.getName());
+        cellImage.setColorFilter(Color.parseColor(cell.getColor()));
+        this.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("HEOH");
+            }
+        });
+
     }
 
 
