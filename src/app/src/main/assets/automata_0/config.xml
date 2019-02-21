@@ -2,7 +2,7 @@
 <automata>
 
     <id>0</id>
-    <name>Conways's game of Life</name>
+    <name>Game of Life</name>
     <default>true</default>
 
     <cell>

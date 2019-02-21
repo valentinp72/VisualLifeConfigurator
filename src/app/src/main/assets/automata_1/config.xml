@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<automata>
+
+    <id>1</id>
+    <name>Wireworld</name>
+    <default>true</default>
+
+    <cell>
+        <id>0</id>
+        <default>true</default>
+        <name>Empty</name>
+        <color>#000000</color>
+    </cell>
+
+    <cell>
+        <id>1</id>
+        <default>false</default>
+        <name>Electron head</name>
+        <color>#1553C9</color>
+        <neighbourIdToCount>1</neighbourIdToCount>
+        <transition nbNeighbours="0" become="1" />
+        <transition nbNeighbours="1" become="2" />
+        <neighbourCoord x="0"  y="0"/>
+    </cell>
+
+    <cell>
+        <id>2</id>
+        <default>false</default>
+        <name>Electron tail</name>
+        <color>#BA1A1A</color>
+        <neighbourIdToCount>2</neighbourIdToCount>
+        <transition nbNeighbours="0" become="2" />
+        <transition nbNeighbours="1" become="3" />
+        <neighbourCoord x="0"  y="0"/>
+    </cell>
+
+    <cell>
+        <id>3</id>
+        <default>false</default>
+        <name>Conductor</name>
+        <color>#DBC30E</color>
+        <neighbourIdToCount>1</neighbourIdToCount>
+        <transition nbNeighbours="0" become="3" />
+        <transition nbNeighbours="1" become="1" />
+        <transition nbNeighbours="2" become="1" />
+        <transition nbNeighbours="3" become="3" />
+        <transition nbNeighbours="4" become="3" />
+        <transition nbNeighbours="5" become="3" />
+        <transition nbNeighbours="6" become="3" />
+        <transition nbNeighbours="7" become="3" />
+        <transition nbNeighbours="8" become="3" />
+        <neighbourCoord x="-1" y="-1"/>
+        <neighbourCoord x="-1" y="0" />
+        <neighbourCoord x="-1" y="0" />
+        <neighbourCoord x="0"  y="-1"/>
+        <neighbourCoord x="0"  y="1" />
+        <neighbourCoord x="1"  y="-1"/>
+        <neighbourCoord x="1"  y="0" />
+        <neighbourCoord x="1"  y="1" />
+    </cell>
+
+</automata>
