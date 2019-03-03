@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.DragEvent;
 import android.view.Gravity;
@@ -54,25 +55,25 @@ public class AutomataCellInListView extends LinearLayout {
         cellText.setText(cell.getName());
         cellImage.setColorFilter(Color.parseColor(cell.getColor()));
 
-        this.cellText.setOnClickListener(new OnClickListener() {
+        this.setClickable(true);
+        this.setOnTouchListener(new OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                System.out.println("HEOH");
-                automataHome.startActivity(CellEditionActivity.class);
-                //setContentView(R.layout.activity_automata_home);
-            }
-        });
-
-        this.moveButton.setOnDragListener(new OnDragListener() {
-            @Override
-            public boolean onDrag(View v, DragEvent event) {
-                System.out.println(event);
-                return false;
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Rect moveButtonRect = new Rect((int) moveButton.getX(), (int) moveButton.getY(), (int)moveButton.getX() + moveButton.getWidth(), (int)moveButton.getY() + moveButton.getHeight());
+                    if(!moveButtonRect.contains((int) event.getX(), (int) event.getY())) {
+                        automataHome.startActivity(CellEditionActivity.class, "Cell", cell);
+                    }
+                    v.setBackgroundColor(getResources().getColor(R.color.colorClicked));
+                }
+                else if(event.getAction() == MotionEvent.ACTION_UP) {
+                    v.setBackgroundColor(0);
+                }
+                return true;
             }
         });
 
         this.moveButton.setOnTouchListener(new OnTouchListener() {
-
             final private int previousColor = AutomataCellInListView.this.getSolidColor();
 
             private void setY(float y) {
@@ -100,7 +101,7 @@ public class AutomataCellInListView extends LinearLayout {
 
                     if(movingUp && position <= 1 || !movingUp && position + 1 >= ll.getChildCount()) {
                         // cancel if we are already on top/bottom
-                        return false;
+                        return true;
                     }
 
                     if (event.getY() > v.getY() + THRESHOLD_MOVE || event.getY() < v.getY() - THRESHOLD_MOVE) {
@@ -136,13 +137,10 @@ public class AutomataCellInListView extends LinearLayout {
                     setY(v.getY());
                     resetColor();
                 }
-
                 return true;
             }
         });
-
     }
-
 
     public int getPosition() {
         return position;

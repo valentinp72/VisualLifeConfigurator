@@ -29,7 +29,7 @@
                 app:srcCompat="@drawable/ic_arrow_back_white_24dp" />
 
             <EditText
-                android:text="Electron"
+                android:text="@string/cell_type_placeholder"
                 android:textColor="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -38,6 +38,62 @@
                 android:inputType="text"
                 android:id="@+id/cell_edition_toolbar_edit" />
         </android.support.v7.widget.Toolbar>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/cell_edition_color"
+            android:background="@drawable/selectors"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/color" />
+
+            <ImageView
+                android:id="@+id/cell_edition_image_color"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_stop_white_24dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cell_edition_neighbour"
+            android:background="@drawable/selectors"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/neighbours" />
+
+            <TextView
+                android:id="@+id/cell_edition_neighbour_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="@string/neighbours_count_placeholder" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

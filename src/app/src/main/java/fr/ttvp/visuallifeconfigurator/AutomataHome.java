@@ -65,8 +65,10 @@ public class AutomataHome extends AppCompatActivity implements Serializable {
         toolbar.setTitle(automata.getName());
     }
 
-    public void startActivity(Class activityClass) {
-        startActivity(new Intent(AutomataHome.this, activityClass));
+    public void startActivity(Class activityClass, String extraKey, Serializable extraData) {
+        Intent intent = new Intent(AutomataHome.this, activityClass);
+        intent.putExtra(extraKey, extraData);
+        startActivity(intent);
     }
 
     @Override
