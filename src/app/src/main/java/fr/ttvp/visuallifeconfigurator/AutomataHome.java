@@ -1,6 +1,7 @@
 package fr.ttvp.visuallifeconfigurator;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import fr.ttvp.visuallifeconfigurator.model.Automata;
@@ -29,24 +31,12 @@ import fr.ttvp.visuallifeconfigurator.model.AutomataLight;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
 import fr.ttvp.visuallifeconfigurator.model.Persitance;
 
-public class AutomataHome extends AppCompatActivity {
+import static android.support.v4.content.ContextCompat.startActivity;
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
+public class AutomataHome extends AppCompatActivity implements Serializable {
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
     private Automata automata;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +51,7 @@ public class AutomataHome extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
+        ViewPager mViewPager;
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -74,6 +65,9 @@ public class AutomataHome extends AppCompatActivity {
         toolbar.setTitle(automata.getName());
     }
 
+    public void startActivity(Class activityClass) {
+        startActivity(new Intent(AutomataHome.this, activityClass));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,12 +92,14 @@ public class AutomataHome extends AppCompatActivity {
 
     public static class HomeTabCells extends Fragment {
 
+        private AutomataHome automataHome;
         private Automata automata;
 
-        public static HomeTabCells createInstance(Automata automata) {
+        public static HomeTabCells createInstance(Automata automata, AutomataHome automataHome) {
             HomeTabCells htc = new HomeTabCells();
             Bundle args = new Bundle();
             args.putSerializable("Automata", automata);
+            args.putSerializable("AutomataHome", automataHome);
             htc.setArguments(args);
             return htc;
         }
@@ -124,20 +120,24 @@ public class AutomataHome extends AppCompatActivity {
         public void onCreate(Bundle b) {
             super.onCreate(b);
             automata = (Automata) getArguments().getSerializable("Automata");
+            automataHome = (AutomataHome) getArguments().getSerializable("AutomataHome");
         }
 
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_automata_home_cells, container, false);
-            System.out.println(automata.getName());
             LinearLayout ll = view.findViewById(R.id.contents);
 
+            int currentPosition = 2;
             for (Cell cell : automata.getCells()) {
-                View toAdd = new AutomataCellInListView(view.getContext(), automata, cell);
+                AutomataCellInListView toAdd = new AutomataCellInListView(view.getContext(), automataHome, automata, cell);
                 if(cell.isDefaultCell()) {
+                    toAdd.setPosition(1);
                     ll.addView(toAdd, 1);
                 }
                 else {
+                    currentPosition++;
+                    toAdd.setPosition(currentPosition);
                     ll.addView(toAdd);
                 }
             }
@@ -181,7 +181,7 @@ public class AutomataHome extends AppCompatActivity {
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class SectionsPagerAdapter extends FragmentPagerAdapter implements Serializable {
 
         private AutomataHome automataHome;
 
@@ -197,7 +197,7 @@ public class AutomataHome extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             if(position == 0) {
-                return HomeTabCells.createInstance(automata);
+                return HomeTabCells.createInstance(automata, automataHome);
             }
             else if(position == 1) {
                 return new HomeTabConfiguration();

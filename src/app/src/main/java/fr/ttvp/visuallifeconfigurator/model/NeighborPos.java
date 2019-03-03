@@ -1,6 +1,8 @@
 package fr.ttvp.visuallifeconfigurator.model;
 
-class NeighborPos {
+import java.io.Serializable;
+
+class NeighborPos implements Serializable {
 
     private int deltaX;
     private int deltaY;

@@ -11,25 +11,33 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".CellEditionActivity"></activity>
         <activity android:name=".ChooseNeighbor">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
 
-            <!--android:parentActivityName=""-->
+
+            <!-- android:parentActivityName="" -->
         </activity>
         <activity
             android:name=".AutomataHome"
             android:label="@string/title_activity_automata_home"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
