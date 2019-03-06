@@ -72,10 +72,25 @@ public class ConfigurationActivity extends AppCompatActivity {
 
         // header, selected area
         for(Cell c : cell.getCellsToCount()) {
+            final Cell tmp = c;
             ImageButton im = this.createButtonForCell(c);
+            im.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cell.getCellsToCount().remove(tmp);
+                    recreate();
+                }
+            });
             this.selectedCells.addView(im);
         }
         ImageButton plusButton = createPlusButton();
+        plusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cell.getCellsToCount().add(cell.getOriginAutomata().getCells().get(0));
+                recreate();
+            }
+        });
         this.selectedCells.addView(plusButton);
         this.selectedCells.setPadding(10,0,10, 0);
 

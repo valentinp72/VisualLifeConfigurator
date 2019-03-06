@@ -1,11 +1,13 @@
 package fr.ttvp.visuallifeconfigurator;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.text.Layout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -31,6 +33,7 @@ public class CellItemConfigView extends LinearLayout {
         init();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void init(){
         LayoutInflater inflater = LayoutInflater.from(getContext());
         inflater.inflate(R.layout.sample_cell_item_config_view, this);
@@ -41,10 +44,22 @@ public class CellItemConfigView extends LinearLayout {
 
         this.image.setColorFilter(Color.parseColor(cell.getColor()));
         this.text.setText(cell.getName());
+
+        this.layout.setClickable(true);
         this.layout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 getContext().startActivity(getIntentClick());
+            }
+        });
+        this.layout.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN)
+                    v.setBackgroundColor(getResources().getColor(R.color.colorClicked));
+                else
+                    v.setBackgroundColor(0);
+                return false;
             }
         });
     }

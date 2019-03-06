@@ -127,6 +127,11 @@ public class Persitance {
         isDefault = Boolean.parseBoolean(Persitance.getContentXML(element, "default"));
 
         Automata automata = new Automata(automataLight, isDefault, Arrays.asList(cells));
+
+        // we set the origin automata of each cell
+        for(Cell c : automata.getCells()) {
+            c.setOriginAutomata(automata);
+        }
         return automata;
     }
 

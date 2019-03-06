@@ -14,6 +14,7 @@ public class Cell implements Serializable {
     private List<Cell> cellsToCount;
     private Cell[] transitions;
     private boolean defaultCell;
+    private Automata originAutomata;
 
     public Cell() {
         this.name  = "Undefined";
@@ -78,5 +79,13 @@ public class Cell implements Serializable {
 
     public void setDefaultCell(boolean defaultCell) {
         this.defaultCell = defaultCell;
+    }
+
+    public Automata getOriginAutomata() {
+        return originAutomata;
+    }
+
+    public void setOriginAutomata(Automata originAutomata) {
+        this.originAutomata = originAutomata;
     }
 }
