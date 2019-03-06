@@ -30,7 +30,6 @@
 
             <EditText
                 android:text="@string/cell_type_placeholder"
-                android:textColor="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="20dp"

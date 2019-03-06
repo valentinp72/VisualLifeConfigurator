@@ -33,6 +33,7 @@ public class AutomataCellInListView extends LinearLayout {
     private TextView cellText;
     private ImageView cellImage;
 
+    private int lastTouchedX, lastTouchedY;
     private int position;
 
     public AutomataCellInListView(Context context, AutomataHome automataHome, Automata automata, Cell cell) {
@@ -53,23 +54,35 @@ public class AutomataCellInListView extends LinearLayout {
         this.cellImage  = findViewById(R.id.cellImage);
 
         cellText.setText(cell.getName());
-        cellImage.setColorFilter(Color.parseColor(cell.getColor()));
+        cellImage.setColorFilter(cell.getColorInt());
 
         this.setClickable(true);
+        this.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Rect moveButtonRect = new Rect(
+                        (int) moveButton.getX(),
+                        (int) moveButton.getY(),
+                        (int)moveButton.getX() + moveButton.getWidth(),
+                        (int)moveButton.getY() + moveButton.getHeight()
+                );
+                if(!moveButtonRect.contains(lastTouchedX, lastTouchedY)) {
+                    automataHome.startActivity(CellEditionActivity.class, "Cell", cell);
+                }
+            }
+        });
         this.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Rect moveButtonRect = new Rect((int) moveButton.getX(), (int) moveButton.getY(), (int)moveButton.getX() + moveButton.getWidth(), (int)moveButton.getY() + moveButton.getHeight());
-                    if(!moveButtonRect.contains((int) event.getX(), (int) event.getY())) {
-                        automataHome.startActivity(CellEditionActivity.class, "Cell", cell);
-                    }
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    lastTouchedX = (int) event.getX();
+                    lastTouchedY = (int) event.getY();
                     v.setBackgroundColor(getResources().getColor(R.color.colorClicked));
                 }
-                else if(event.getAction() == MotionEvent.ACTION_UP) {
+                else {
                     v.setBackgroundColor(0);
                 }
-                return true;
+                return false;
             }
         });
 

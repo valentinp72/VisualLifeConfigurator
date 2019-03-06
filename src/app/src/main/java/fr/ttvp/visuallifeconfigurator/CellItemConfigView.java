@@ -1,59 +1,59 @@
 package fr.ttvp.visuallifeconfigurator;
 
-/*import android.content.Context;
-import android.util.AttributeSet;
-import android.view.View;
-import android.widget.LinearLayout;
-
-public class AutomataCellInListView extends LinearLayout {
-
-    public AutomataCellInListView(Context context) {
-        super(context);
-    }
-
-    public AutomataCellInListView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public AutomataCellInListView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
-
-}
-*/
-
-
-//import com.vogella.android.view.compoundview.R;
-
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.text.Layout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import fr.ttvp.visuallifeconfigurator.model.Automata;
+import fr.ttvp.visuallifeconfigurator.model.AutomataLight;
+import fr.ttvp.visuallifeconfigurator.model.Cell;
+import fr.ttvp.visuallifeconfigurator.view.ConfigurationActivity;
 
 public class CellItemConfigView extends LinearLayout {
 
-    private ImageButton moveButton;
+    private Cell cell;
 
-    public CellItemConfigView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(attrs);
-        //setOrientation(LinearLayout.HORIZONTAL);
-        //setGravity(Gravity.CENTER_VERTICAL);
+    private LinearLayout layout;
+    private ImageView image;
+    private TextView text;
 
-        //inflater.inflate(R.layout.sample_automata_cell_in_list_view, this, true);
+    public CellItemConfigView(Context context, Cell cell) {
+        super(context, null);
+        this.cell = cell;
+        init();
     }
 
-    public CellItemConfigView(Context context) {
-        this(context, null);
-        init(null);
-    }
-
-    private void init(AttributeSet set){
+    private void init(){
         LayoutInflater inflater = LayoutInflater.from(getContext());
         inflater.inflate(R.layout.sample_cell_item_config_view, this);
+
+        this.layout = findViewById(R.id.cell_item_config);
+        this.image  = findViewById(R.id.cell_item_config_image);
+        this.text   = findViewById(R.id.cell_item_config_text);
+
+        this.image.setColorFilter(Color.parseColor(cell.getColor()));
+        this.text.setText(cell.getName());
+        this.layout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getContext().startActivity(getIntentClick());
+            }
+        });
     }
 
+    private Intent getIntentClick() {
+        Intent intent = new Intent(getContext(), ConfigurationActivity.class);
+        intent.putExtra("Cell", this.cell);
+        return intent;
+    }
 
 
 }

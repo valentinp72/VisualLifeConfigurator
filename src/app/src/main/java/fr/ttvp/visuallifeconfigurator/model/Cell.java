@@ -1,5 +1,7 @@
 package fr.ttvp.visuallifeconfigurator.model;
 
+import android.graphics.Color;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,19 @@ public class Cell implements Serializable {
 
     public String getColor() {
         return color;
+    }
+
+    public int getColorInt() {
+        return Color.parseColor(this.color);
+    }
+
+    public int getMatchingColor() {
+        final int middle  = (255 * 3) / 2;
+        final int current = this.getColorInt();
+        if(Color.red(current) + Color.green(current) + Color.blue(current) < middle) {
+            return Color.WHITE;
+        }
+        return Color.BLACK;
     }
 
     public void setColor(String color) {

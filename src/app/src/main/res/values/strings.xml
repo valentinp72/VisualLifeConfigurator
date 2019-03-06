@@ -18,4 +18,6 @@
     <string name="color">Color</string>
     <string name="neighbours_count_placeholder">{{0}}</string>
     <string name="cell_type_placeholder">Cell type</string>
+    <string name="title_activity_configuration">ConfigurationActivity</string>
+    <string name="cell_configuration_expl">Depends on the number of</string>
 </resources>

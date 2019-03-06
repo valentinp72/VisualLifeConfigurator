@@ -11,7 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".CellEditionActivity"></activity>
+        <activity
+            android:name=".view.ConfigurationActivity"
+            android:label="@string/title_activity_configuration"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".CellEditionActivity" />
         <activity android:name=".ChooseNeighbor">
 
             <!--
