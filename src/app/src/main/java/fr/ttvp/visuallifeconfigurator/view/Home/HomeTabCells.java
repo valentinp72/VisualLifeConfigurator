@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import fr.ttvp.visuallifeconfigurator.AutomataCellInListView;
+import fr.ttvp.visuallifeconfigurator.view.AutomataCellInListView;
 import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
 

@@ -1,19 +1,11 @@
 package fr.ttvp.visuallifeconfigurator.view;
 
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,6 +24,8 @@ public class ConfigurationActivity extends AppCompatActivity {
     private LinearLayout selectedCells;
     private LinearLayout config;
 
+    private ResultCallbackParam<Cell> callback;
+
     private Cell cell;
 
     @Override
@@ -39,7 +33,9 @@ public class ConfigurationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuration);
 
-        this.cell = (Cell) getIntent().getSerializableExtra("Cell");
+        this.cell = (Cell) getIntent().getExtras().getSerializable("Cell");
+        //this.cell = (Cell) getIntent().getSerializableExtra("Cell");
+        //this.callback = (ResultCallbackParam<Cell>) getIntent().getSerializableExtra("Callback");
 
         this.toolbar    = findViewById(R.id.toolbar);
         this.backButton = findViewById(R.id.cell_configuration_toolbar_back);
@@ -53,6 +49,10 @@ public class ConfigurationActivity extends AppCompatActivity {
     }
 
     private void init() {
+        final Activity activity = this;
+
+        this.selectedCells.removeAllViews();
+        this.config.removeAllViews();
 
         // toolbar
         toolbar.setTitle(cell.getName());
@@ -78,7 +78,7 @@ public class ConfigurationActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     cell.getCellsToCount().remove(tmp);
-                    recreate();
+                    init();
                 }
             });
             this.selectedCells.addView(im);
@@ -87,8 +87,15 @@ public class ConfigurationActivity extends AppCompatActivity {
         plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cell.getCellsToCount().add(cell.getOriginAutomata().getCells().get(0));
-                recreate();
+                final DialogCellChoosing dialog = new DialogCellChoosing(activity, cell.getOriginAutomata().getCells(), cell.getOriginAutomata().getCells().get(0));
+                dialog.show();
+                dialog.setCallback(new ResultCallback() {
+                    @Override
+                    public void ended() {
+                        cell.getCellsToCount().add(dialog.getCurrentCell());
+                        init();
+                    }
+                });
             }
         });
         this.selectedCells.addView(plusButton);
@@ -104,10 +111,9 @@ public class ConfigurationActivity extends AppCompatActivity {
 
     }
 
-    private RelativeLayout createLineForCount(int count) {
-
+    private RelativeLayout createLineForCount(final int count) {
+        final Activity activity = this;
         RelativeLayout line = new RelativeLayout(this);
-
 
         TextView text = new TextView(this);
         text.setText(Integer.toString(count));
@@ -116,12 +122,26 @@ public class ConfigurationActivity extends AppCompatActivity {
         paramsText.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
         text.setLayoutParams(paramsText);
 
-        ImageButton button = createButtonForCell(cell.getTransitions()[count]);
+        final ImageButton button = createButtonForCell(cell.getTransitions()[count]);
         // align to the right the image
         RelativeLayout.LayoutParams paramsImg = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         paramsImg.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
         button.setLayoutParams(paramsImg);
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final DialogCellChoosing dialog = new DialogCellChoosing(activity, cell.getOriginAutomata().getCells(), cell.getTransitions()[count]);
+                dialog.show();
+                dialog.setCallback(new ResultCallback() {
+                    @Override
+                    public void ended() {
+                        button.setColorFilter(dialog.getCurrentCell().getColorInt());
+                        cell.getTransitions()[count] = dialog.getCurrentCell();
+                    }
+                });
+            }
+        });
         line.addView(text);
         line.addView(button);
         return line;
@@ -144,4 +164,9 @@ public class ConfigurationActivity extends AppCompatActivity {
         return view;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //callback.ended(cell);
+    }
 }

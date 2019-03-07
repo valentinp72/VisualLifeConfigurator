@@ -15,8 +15,8 @@
             android:name=".view.ConfigurationActivity"
             android:label="@string/title_activity_configuration"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".CellEditionActivity" />
-        <activity android:name=".ChooseNeighbor">
+        <activity android:name=".view.CellEditionActivity" />
+        <activity android:name=".view.ChooseNeighbor">
 
             <!--
             <intent-filter>
@@ -30,9 +30,9 @@
             <!-- android:parentActivityName="" -->
         </activity>
         <activity
-            android:name=".AutomataHome"
+            android:name=".view.Home.AutomataHome"
             android:label="@string/title_activity_automata_home"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".view.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
             <!--
@@ -45,9 +45,9 @@
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="fr.ttvp.visuallifeconfigurator.MainActivity" />
+                android:value="fr.ttvp.visuallifeconfigurator.view.MainActivity" />
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

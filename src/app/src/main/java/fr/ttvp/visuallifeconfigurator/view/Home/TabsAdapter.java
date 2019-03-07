@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.io.Serializable;
 
-import fr.ttvp.visuallifeconfigurator.AutomataHome;
 import fr.ttvp.visuallifeconfigurator.model.Automata;
 
 public class TabsAdapter extends FragmentPagerAdapter implements Serializable {

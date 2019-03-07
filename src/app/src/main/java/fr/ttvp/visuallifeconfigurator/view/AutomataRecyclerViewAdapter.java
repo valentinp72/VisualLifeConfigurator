@@ -1,4 +1,4 @@
-package fr.ttvp.visuallifeconfigurator;
+package fr.ttvp.visuallifeconfigurator.view;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -7,14 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Arrays;
 import java.util.List;
 
-import fr.ttvp.visuallifeconfigurator.model.Automata;
+import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.AutomataLight;
-import fr.ttvp.visuallifeconfigurator.model.Persitance;
-
-import static android.support.v4.content.ContextCompat.startActivity;
+import fr.ttvp.visuallifeconfigurator.view.Home.AutomataHome;
 
 
 public class AutomataRecyclerViewAdapter extends RecyclerView.Adapter<AutomataRecyclerViewAdapter.ViewHolder> {

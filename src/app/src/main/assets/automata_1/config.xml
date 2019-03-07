@@ -10,6 +10,10 @@
         <default>true</default>
         <name>Empty</name>
         <color>#000000</color>
+        <neighbourIdToCount>0</neighbourIdToCount>
+        <neighbourCoord x="0"  y="0"/>
+        <transition nbNeighbours="0" become="0" />
+        <transition nbNeighbours="1" become="0" />
     </cell>
 
     <cell>

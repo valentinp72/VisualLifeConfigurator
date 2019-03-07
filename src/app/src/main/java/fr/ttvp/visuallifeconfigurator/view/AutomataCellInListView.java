@@ -1,27 +1,21 @@
-package fr.ttvp.visuallifeconfigurator;
+package fr.ttvp.visuallifeconfigurator.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.util.AttributeSet;
-import android.view.DragEvent;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Automata;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
-
-import static android.support.v4.content.ContextCompat.startActivity;
+import fr.ttvp.visuallifeconfigurator.view.Home.AutomataHome;
 
 public class AutomataCellInListView extends LinearLayout {
 

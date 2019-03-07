@@ -113,7 +113,7 @@ public class Persitance {
 
             // transitions from this cell type to other types
             NodeList transitions = cell.getElementsByTagName("transition");
-            Cell[] transitionsCells = new Cell[transitions.getLength()];
+            Cell[] transitionsCells = new Cell[neighbourCoords.getLength() + 1];
             for (int j = 0 ; j < transitions.getLength(); j++) {
                 Element e = (Element) transitions.item(j);
                 int nbNeighbours = Integer.parseInt(e.getAttribute("nbNeighbours"));

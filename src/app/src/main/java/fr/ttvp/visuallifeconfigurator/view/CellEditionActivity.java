@@ -1,4 +1,4 @@
-package fr.ttvp.visuallifeconfigurator;
+package fr.ttvp.visuallifeconfigurator.view;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
 import com.pes.androidmaterialcolorpickerdialog.ColorPickerCallback;
 
+import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
 
 public class CellEditionActivity extends AppCompatActivity {

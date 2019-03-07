@@ -1,4 +1,4 @@
-package fr.ttvp.visuallifeconfigurator;
+package fr.ttvp.visuallifeconfigurator.view.Home;
 
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -12,9 +12,9 @@ import android.view.MenuItem;
 
 import java.io.Serializable;
 
+import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Automata;
 import fr.ttvp.visuallifeconfigurator.model.AutomataLight;
-import fr.ttvp.visuallifeconfigurator.view.Home.TabsAdapter;
 
 public class AutomataHome extends AppCompatActivity implements Serializable {
 

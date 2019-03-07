@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import fr.ttvp.visuallifeconfigurator.CellItemConfigView;
+import fr.ttvp.visuallifeconfigurator.view.CellItemConfigView;
 import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
 

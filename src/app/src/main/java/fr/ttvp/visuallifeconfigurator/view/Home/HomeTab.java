@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import fr.ttvp.visuallifeconfigurator.AutomataHome;
 import fr.ttvp.visuallifeconfigurator.model.Automata;
 
 public abstract class HomeTab extends Fragment {
