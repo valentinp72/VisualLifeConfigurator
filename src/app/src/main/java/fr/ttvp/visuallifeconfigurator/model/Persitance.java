@@ -78,7 +78,9 @@ public class Persitance {
         for (int i = 0 ; i < cellsNode.getLength() ; i++) {
             Element c = (Element) cellsNode.item(i);
             Cell cell = new Cell();
-            cells[Integer.parseInt(Persitance.getContentXML(c, "id"))] =  cell;
+            int id = Integer.parseInt(Persitance.getContentXML(c, "id"));
+            cells[id] = cell;
+            cell.setId(id);
         }
 
         // each cell configuration
