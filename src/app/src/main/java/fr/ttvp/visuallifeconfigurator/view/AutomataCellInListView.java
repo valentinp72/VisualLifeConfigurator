@@ -1,27 +1,21 @@
-package fr.ttvp.visuallifeconfigurator;
+package fr.ttvp.visuallifeconfigurator.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.util.AttributeSet;
-import android.view.DragEvent;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Automata;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
-
-import static android.support.v4.content.ContextCompat.startActivity;
+import fr.ttvp.visuallifeconfigurator.view.Home.AutomataHome;
 
 public class AutomataCellInListView extends LinearLayout {
 
@@ -33,6 +27,7 @@ public class AutomataCellInListView extends LinearLayout {
     private TextView cellText;
     private ImageView cellImage;
 
+    private int lastTouchedX, lastTouchedY;
     private int position;
 
     public AutomataCellInListView(Context context, AutomataHome automataHome, Automata automata, Cell cell) {
@@ -53,23 +48,35 @@ public class AutomataCellInListView extends LinearLayout {
         this.cellImage  = findViewById(R.id.cellImage);
 
         cellText.setText(cell.getName());
-        cellImage.setColorFilter(Color.parseColor(cell.getColor()));
+        cellImage.setColorFilter(cell.getColorInt());
 
         this.setClickable(true);
+        this.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Rect moveButtonRect = new Rect(
+                        (int) moveButton.getX(),
+                        (int) moveButton.getY(),
+                        (int)moveButton.getX() + moveButton.getWidth(),
+                        (int)moveButton.getY() + moveButton.getHeight()
+                );
+                if(!moveButtonRect.contains(lastTouchedX, lastTouchedY)) {
+                    automataHome.startActivity(CellEditionActivity.class, "Cell", cell);
+                }
+            }
+        });
         this.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Rect moveButtonRect = new Rect((int) moveButton.getX(), (int) moveButton.getY(), (int)moveButton.getX() + moveButton.getWidth(), (int)moveButton.getY() + moveButton.getHeight());
-                    if(!moveButtonRect.contains((int) event.getX(), (int) event.getY())) {
-                        automataHome.startActivity(CellEditionActivity.class, "Cell", cell);
-                    }
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    lastTouchedX = (int) event.getX();
+                    lastTouchedY = (int) event.getY();
                     v.setBackgroundColor(getResources().getColor(R.color.colorClicked));
                 }
-                else if(event.getAction() == MotionEvent.ACTION_UP) {
+                else {
                     v.setBackgroundColor(0);
                 }
-                return true;
+                return false;
             }
         });
 

@@ -1,4 +1,4 @@
-package fr.ttvp.visuallifeconfigurator;
+package fr.ttvp.visuallifeconfigurator.view;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,12 +16,14 @@ import android.widget.TextView;
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
 import com.pes.androidmaterialcolorpickerdialog.ColorPickerCallback;
 
+import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
 
 public class CellEditionActivity extends AppCompatActivity {
 
     private Cell cell;
 
+    private Toolbar toolbar;
     private EditText nameEditor;
     private ImageView colorPreview;
     private TextView neighboursPreview;
@@ -42,6 +44,7 @@ public class CellEditionActivity extends AppCompatActivity {
     }
 
     private void initComponents() {
+        this.toolbar       = (Toolbar) findViewById(R.id.cell_edition_toolbar);
         this.nameEditor    = (EditText) findViewById(R.id.cell_edition_toolbar_edit);
         this.backButton    = (ImageButton) findViewById(R.id.cell_edition_toolbar_back);
         this.colorPreview  = (ImageView) findViewById(R.id.cell_edition_image_color);
@@ -49,8 +52,13 @@ public class CellEditionActivity extends AppCompatActivity {
         this.neighbourArea = (LinearLayout) findViewById(R.id.cell_edition_neighbour);
         this.colorArea     = (LinearLayout) findViewById(R.id.cell_edition_color);
 
+        toolbar.setBackgroundColor(cell.getColorInt());
+        toolbar.setTitleTextColor(cell.getMatchingColor());
+        toolbar.setSubtitleTextColor(cell.getMatchingColor());
+        backButton.setColorFilter(cell.getMatchingColor());
         nameEditor.setText(cell.getName());
-        colorPreview.setColorFilter(Color.parseColor(cell.getColor()));
+        nameEditor.setTextColor(cell.getMatchingColor());
+        colorPreview.setColorFilter(cell.getColorInt());
         neighboursPreview.setText(Integer.toString(cell.getNeighbours().size()));
 
         colorPreview.setClickable(true);

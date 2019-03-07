@@ -1,5 +1,7 @@
 package fr.ttvp.visuallifeconfigurator.model;
 
+import android.graphics.Color;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ public class Cell implements Serializable {
     private List<Cell> cellsToCount;
     private Cell[] transitions;
     private boolean defaultCell;
+    private Automata originAutomata;
 
     public Cell() {
         this.name  = "Undefined";
@@ -46,6 +49,19 @@ public class Cell implements Serializable {
         return color;
     }
 
+    public int getColorInt() {
+        return Color.parseColor(this.color);
+    }
+
+    public int getMatchingColor() {
+        final int middle  = (255 * 3) / 2;
+        final int current = this.getColorInt();
+        if(Color.red(current) + Color.green(current) + Color.blue(current) < middle) {
+            return Color.WHITE;
+        }
+        return Color.BLACK;
+    }
+
     public void setColor(String color) {
         this.color = color;
     }
@@ -72,5 +88,13 @@ public class Cell implements Serializable {
 
     public void setDefaultCell(boolean defaultCell) {
         this.defaultCell = defaultCell;
+    }
+
+    public Automata getOriginAutomata() {
+        return originAutomata;
+    }
+
+    public void setOriginAutomata(Automata originAutomata) {
+        this.originAutomata = originAutomata;
     }
 }

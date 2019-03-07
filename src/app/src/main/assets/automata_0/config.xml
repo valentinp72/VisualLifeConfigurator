@@ -53,6 +53,6 @@
         <neighbourCoord x="1"  y="-1"/>
         <neighbourCoord x="1"  y="0" />
         <neighbourCoord x="1"  y="1" />
-    </cell>
+	</cell>
 
 </automata>

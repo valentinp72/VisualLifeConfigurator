@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".AutomataHome">
+    tools:context=".view.Home.AutomataHome">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"

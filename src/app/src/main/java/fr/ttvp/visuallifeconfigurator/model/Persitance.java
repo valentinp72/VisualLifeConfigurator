@@ -114,8 +114,8 @@ public class Persitance {
             }
 
             // transitions from this cell type to other types
-            Cell[] transitionsCells = new Cell[neighborPos.size() + 1];
             NodeList transitions = cell.getElementsByTagName("transition");
+            Cell[] transitionsCells = new Cell[neighbourCoords.getLength() + 1];
             for (int j = 0 ; j < transitions.getLength(); j++) {
                 Element e = (Element) transitions.item(j);
                 int nbNeighbours = Integer.parseInt(e.getAttribute("nbNeighbours"));
@@ -129,6 +129,11 @@ public class Persitance {
         isDefault = Boolean.parseBoolean(Persitance.getContentXML(element, "default"));
 
         Automata automata = new Automata(automataLight, isDefault, Arrays.asList(cells));
+
+        // we set the origin automata of each cell
+        for(Cell c : automata.getCells()) {
+            c.setOriginAutomata(automata);
+        }
         return automata;
     }
 
