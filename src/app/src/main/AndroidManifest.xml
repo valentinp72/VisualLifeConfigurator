@@ -12,9 +12,13 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".view.SavedMapsActivity"
+            android:label="@string/title_activity_saved_maps"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".view.ConfigurationActivity"
             android:label="@string/title_activity_configuration"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.CellEditionActivity" />
         <activity android:name=".view.ChooseNeighbor">
 
