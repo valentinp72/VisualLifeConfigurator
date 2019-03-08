@@ -2,6 +2,7 @@ package fr.ttvp.visuallifeconfigurator.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.view.LayoutInflater;
@@ -16,9 +17,12 @@ import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Automata;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
 import fr.ttvp.visuallifeconfigurator.view.Home.AutomataHome;
+import fr.ttvp.visuallifeconfigurator.view.Home.HomeTab;
+import fr.ttvp.visuallifeconfigurator.view.Home.HomeTabCells;
 
 public class AutomataCellInListView extends LinearLayout {
 
+    private HomeTab tab;
     private AutomataHome automataHome;
     private Automata automata;
     private Cell cell;
@@ -30,10 +34,11 @@ public class AutomataCellInListView extends LinearLayout {
     private int lastTouchedX, lastTouchedY;
     private int position;
 
-    public AutomataCellInListView(Context context, AutomataHome automataHome, Automata automata, Cell cell) {
+    public AutomataCellInListView(Context context, AutomataHome automataHome, Automata automata, Cell cell, HomeTab tab) {
         super(context, null);
-        this.automataHome = automataHome;
+        this.tab = tab;
         this.automata = automata;
+        this.automataHome = automataHome;
         this.cell = cell;
         init();
     }
@@ -61,7 +66,9 @@ public class AutomataCellInListView extends LinearLayout {
                         (int)moveButton.getY() + moveButton.getHeight()
                 );
                 if(!moveButtonRect.contains(lastTouchedX, lastTouchedY)) {
-                    automataHome.startActivity(CellEditionActivity.class, "Cell", cell);
+                    Intent intent = new Intent(automataHome, CellEditionActivity.class);
+                    intent.putExtra("Cell", cell);
+                    tab.launchActivity(intent, HomeTab.EDITED_CELL);
                 }
             }
         });

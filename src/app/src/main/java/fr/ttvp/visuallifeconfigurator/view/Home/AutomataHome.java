@@ -47,12 +47,6 @@ public class AutomataHome extends AppCompatActivity implements Serializable {
         toolbar.setTitle(automata.getName());
     }
 
-    public void startActivity(Class activityClass, String extraKey, Serializable extraData) {
-        Intent intent = new Intent(AutomataHome.this, activityClass);
-        intent.putExtra(extraKey, extraData);
-        startActivity(intent);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

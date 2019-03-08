@@ -1,5 +1,6 @@
 package fr.ttvp.visuallifeconfigurator.view.Home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,8 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import fr.ttvp.visuallifeconfigurator.model.Automata;
+import fr.ttvp.visuallifeconfigurator.model.Cell;
+
+import static android.app.Activity.RESULT_OK;
 
 public abstract class HomeTab extends Fragment {
+
+    public static final int EDITED_CELL = 1;
 
     protected AutomataHome automataHome;
     protected Automata automata;
@@ -28,10 +34,16 @@ public abstract class HomeTab extends Fragment {
         this.layoutName = layoutName;
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(this.layoutName, container, false);
+        initComponents();
+        initView();
         return this.view;
     }
+
+    public abstract void initComponents();
+
+    public abstract void initView();
 
     @Override
     public void onCreate(Bundle b) {
@@ -39,5 +51,24 @@ public abstract class HomeTab extends Fragment {
         automata = (Automata) getArguments().getSerializable("Automata");
         automataHome = (AutomataHome) getArguments().getSerializable("AutomataHome");
     }
+
+    public void launchActivity(Intent intent, int code) {
+        this.startActivityForResult(intent, code);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK) {
+            if(requestCode == EDITED_CELL) {
+                Cell c = (Cell) data.getSerializableExtra("cell");
+                automata.replaceCell(c);
+                // TODO: automata.save();
+            }
+            initView();
+        }
+    }
+
 
 }

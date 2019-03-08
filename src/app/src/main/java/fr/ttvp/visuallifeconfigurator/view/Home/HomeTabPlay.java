@@ -13,10 +13,12 @@ public class HomeTabPlay extends HomeTab {
         super(R.layout.fragment_automata_home_play);
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
+    public void initComponents() {
 
-        return view;
+    }
+
+    public void initView() {
+
     }
 
 }

@@ -1,6 +1,7 @@
 package fr.ttvp.visuallifeconfigurator.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -33,8 +34,8 @@ public class ConfigurationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuration);
 
-        this.cell = (Cell) getIntent().getExtras().getSerializable("Cell");
-        //this.cell = (Cell) getIntent().getSerializableExtra("Cell");
+        //this.cell = (Cell) getIntent().getExtras().getSerializable("Cell");
+        this.cell = (Cell) getIntent().getSerializableExtra("Cell");
         //this.callback = (ResultCallbackParam<Cell>) getIntent().getSerializableExtra("Callback");
 
         this.toolbar    = findViewById(R.id.toolbar);
@@ -46,11 +47,11 @@ public class ConfigurationActivity extends AppCompatActivity {
         this.config        = findViewById(R.id.cell_configuration_list);
 
         init();
+        System.out.println("coucou");
+
     }
 
     private void init() {
-        final Activity activity = this;
-
         this.selectedCells.removeAllViews();
         this.config.removeAllViews();
 
@@ -66,7 +67,7 @@ public class ConfigurationActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                ConfigurationActivity.this.finish();
             }
         });
 
@@ -87,7 +88,7 @@ public class ConfigurationActivity extends AppCompatActivity {
         plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final DialogCellChoosing dialog = new DialogCellChoosing(activity, cell.getOriginAutomata().getCells(), cell.getOriginAutomata().getCells().get(0));
+                final DialogCellChoosing dialog = new DialogCellChoosing(ConfigurationActivity.this, cell.getOriginAutomata().getCells(), cell.getOriginAutomata().getCells().get(0));
                 dialog.show();
                 dialog.setCallback(new ResultCallback() {
                     @Override
@@ -165,8 +166,10 @@ public class ConfigurationActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        //callback.ended(cell);
+    public void finish() {
+        Intent data = new Intent();
+        data.putExtra("cell", this.cell);
+        setResult(RESULT_OK, data);
+        super.finish();
     }
 }

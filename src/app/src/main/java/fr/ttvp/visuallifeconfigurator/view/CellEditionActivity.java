@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -44,13 +46,13 @@ public class CellEditionActivity extends AppCompatActivity {
     }
 
     private void initComponents() {
-        this.toolbar       = (Toolbar) findViewById(R.id.cell_edition_toolbar);
-        this.nameEditor    = (EditText) findViewById(R.id.cell_edition_toolbar_edit);
-        this.backButton    = (ImageButton) findViewById(R.id.cell_edition_toolbar_back);
-        this.colorPreview  = (ImageView) findViewById(R.id.cell_edition_image_color);
-        this.neighboursPreview = (TextView) findViewById(R.id.cell_edition_neighbour_count);
-        this.neighbourArea = (LinearLayout) findViewById(R.id.cell_edition_neighbour);
-        this.colorArea     = (LinearLayout) findViewById(R.id.cell_edition_color);
+        this.toolbar       = findViewById(R.id.cell_edition_toolbar);
+        this.nameEditor    = findViewById(R.id.cell_edition_toolbar_edit);
+        this.backButton    = findViewById(R.id.cell_edition_toolbar_back);
+        this.colorPreview  = findViewById(R.id.cell_edition_image_color);
+        this.neighboursPreview = findViewById(R.id.cell_edition_neighbour_count);
+        this.neighbourArea = findViewById(R.id.cell_edition_neighbour);
+        this.colorArea     = findViewById(R.id.cell_edition_color);
 
         toolbar.setBackgroundColor(cell.getColorInt());
         toolbar.setTitleTextColor(cell.getMatchingColor());
@@ -78,6 +80,9 @@ public class CellEditionActivity extends AppCompatActivity {
                     public void onColorChosen(int color) {
                         cell.setColor("#" + Integer.toHexString(color));
                         colorPreview.setColorFilter(color);
+                        toolbar.setBackgroundColor(color);
+                        backButton.setColorFilter(cell.getMatchingColor());
+                        nameEditor.setTextColor(cell.getMatchingColor());
                     }
                 });
             }
@@ -92,11 +97,36 @@ public class CellEditionActivity extends AppCompatActivity {
             }
         });
 
+        nameEditor.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                cell.setName(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void finish() {
+        Intent data = new Intent();
+        data.putExtra("cell", this.cell);
+        setResult(RESULT_OK, data);
+        super.finish();
     }
 }

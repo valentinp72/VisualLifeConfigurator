@@ -22,14 +22,17 @@ import fr.ttvp.visuallifeconfigurator.model.Automata;
 import fr.ttvp.visuallifeconfigurator.model.AutomataLight;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
 import fr.ttvp.visuallifeconfigurator.view.ConfigurationActivity;
+import fr.ttvp.visuallifeconfigurator.view.Home.HomeTab;
 
-public class CellItemConfigView extends LinearLayout implements Serializable {
+public class CellItemConfigView extends LinearLayout {
 
+    private HomeTab tab;
     private Cell cell;
 
-    public CellItemConfigView(Context context, Cell cell) {
-        super(context, null);
+    public CellItemConfigView(Context context, Cell cell, HomeTab tab) {
+        super(context, null);;
         this.cell = cell;
+        this.tab  = tab;
         init();
     }
 
@@ -53,7 +56,7 @@ public class CellItemConfigView extends LinearLayout implements Serializable {
         layout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                getContext().startActivity(getIntentClick());
+                tab.launchActivity(getIntentClick(), HomeTab.EDITED_CELL);
             }
         });
         layout.setOnTouchListener(new OnTouchListener() {
@@ -70,21 +73,9 @@ public class CellItemConfigView extends LinearLayout implements Serializable {
 
     private Intent getIntentClick() {
         Intent intent = new Intent(getContext(), ConfigurationActivity.class);
-        //intent.putExtra("Cell", this.cell);
-        //intent.putExtra("Callback", this);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("Cell", this.cell);
-        bundle.putSerializable("Callback", new ResultCallbackParam<Cell>() {
-            @Override
-            public void ended(Cell newCell) {
-                setCell(newCell);
-                init();
-            }
-        });
-        intent.putExtras(bundle);
+        intent.putExtra("Cell", this.cell);
         return intent;
     }
-
 
     public Cell getCell() {
         return cell;

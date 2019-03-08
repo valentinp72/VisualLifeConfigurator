@@ -37,4 +37,16 @@ public class Automata implements Serializable {
     public AutomataLight getAutomataLight() {
         return this.automataLight;
     }
+
+    public void setCells(List<Cell> cells) {
+        this.cells = cells;
+    }
+
+    public void replaceCell(Cell cell) {
+        for(int i = 0 ; i < this.cells.size() ; i++) {
+            if(this.cells.get(i).getId() == cell.getId()) {
+                this.cells.set(i, cell);
+            }
+        }
+    }
 }

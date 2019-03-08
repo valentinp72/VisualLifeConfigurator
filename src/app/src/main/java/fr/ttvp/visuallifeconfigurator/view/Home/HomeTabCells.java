@@ -6,13 +6,20 @@ import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import fr.ttvp.visuallifeconfigurator.view.AutomataCellInListView;
 import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
 
 public class HomeTabCells extends HomeTab {
+
+    private View defaultText;
+    private View divider;
 
     private LinearLayout ll;
     private FloatingActionButton fab;
@@ -21,11 +28,14 @@ public class HomeTabCells extends HomeTab {
         super(R.layout.fragment_automata_home_cells);
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        this.ll = view.findViewById(R.id.contents);
-
+    public void initComponents() {
+        this.ll  = view.findViewById(R.id.contents);
         this.fab = view.findViewById(R.id.fab);
+        this.divider     = view.findViewById(R.id.divider);
+        this.defaultText = view.findViewById(R.id.textView);
+    }
+
+    public void initView() {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,9 +44,12 @@ public class HomeTabCells extends HomeTab {
             }
         });
 
+        ll.removeAllViews();
+        ll.addView(defaultText);
+        ll.addView(divider);
         int currentPosition = 2;
         for (Cell cell : automata.getCells()) {
-            AutomataCellInListView toAdd = new AutomataCellInListView(view.getContext(), automataHome, automata, cell);
+            AutomataCellInListView toAdd = new AutomataCellInListView(view.getContext(), automataHome, automata, cell, this);
             if(cell.isDefaultCell()) {
                 toAdd.setPosition(1);
                 ll.addView(toAdd, 1);
@@ -47,7 +60,6 @@ public class HomeTabCells extends HomeTab {
                 ll.addView(toAdd);
             }
         }
-        return this.view;
     }
 
 }
