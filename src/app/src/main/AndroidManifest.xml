@@ -12,49 +12,30 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".view.SavedMapsActivity"
+            android:name=".view.Activities.SavedMapsActivity"
             android:label="@string/title_activity_saved_maps"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme"/>
         <activity
-            android:name=".view.ConfigurationActivity"
+            android:name=".view.Activities.ConfigurationActivity"
             android:label="@string/title_activity_configuration"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.CellEditionActivity" />
-        <activity android:name=".view.ChooseNeighbor">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-
-
-            <!-- android:parentActivityName="" -->
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".view.Activities.CellEditionActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".view.Activities.ChooseNeighborActivity">
         </activity>
         <activity
             android:name=".view.Home.AutomataHome"
             android:label="@string/title_activity_automata_home"
-            android:parentActivityName=".view.MainActivity"
+            android:parentActivityName=".view.Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="fr.ttvp.visuallifeconfigurator.view.MainActivity" />
+                android:value="fr.ttvp.visuallifeconfigurator.view.Activities.MainActivity" />
         </activity>
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".view.Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -1,8 +1,9 @@
 package fr.ttvp.visuallifeconfigurator.model;
 
 import java.io.Serializable;
+import java.util.List;
 
-class NeighborPos implements Serializable {
+public class NeighborPos implements Serializable {
 
     private int deltaX;
     private int deltaY;
@@ -22,5 +23,17 @@ class NeighborPos implements Serializable {
 
     public int getDeltaX() {
         return deltaX;
+    }
+
+    public boolean equals(NeighborPos other) {
+        return other.getDeltaX() == this.deltaX && other.getDeltaY() == this.deltaY;
+    }
+
+    public boolean presentInList(List<NeighborPos> list) {
+        for(NeighborPos pos : list) {
+            if(this.equals(pos))
+                return true;
+        }
+        return false;
     }
 }

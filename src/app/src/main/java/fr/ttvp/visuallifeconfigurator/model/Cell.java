@@ -5,8 +5,12 @@ import android.graphics.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class Cell implements Serializable {
+
+    public static final int NEIGHBOURS_SIZE_HORIZONTAL = 5;
+    public static final int NEIGHBOURS_SIZE_VERTICAL   = 5;
 
     private int id;
     private String name;
@@ -62,6 +66,20 @@ public class Cell implements Serializable {
         return Color.BLACK;
     }
 
+    public List<NeighborPos> getNeighboursPosForSizes() {
+        List<NeighborPos> list = new ArrayList<>();
+        int middleX = NEIGHBOURS_SIZE_HORIZONTAL / 2;
+        int middleY = NEIGHBOURS_SIZE_VERTICAL / 2;
+
+        for(int y = 0 ; y < NEIGHBOURS_SIZE_VERTICAL ; y++) {
+            for(int x = 0 ; x < NEIGHBOURS_SIZE_HORIZONTAL ; x++) {
+                NeighborPos nPos = new NeighborPos(x - middleX, y - middleY);
+                list.add(nPos);
+            }
+        }
+        return list;
+    }
+
     public void setColor(String color) {
         this.color = color;
     }
@@ -96,5 +114,24 @@ public class Cell implements Serializable {
 
     public void setOriginAutomata(Automata originAutomata) {
         this.originAutomata = originAutomata;
+    }
+
+    public void setNeighbourStatus(NeighborPos nPos, boolean isChecked) {
+        if(isChecked) {
+            if(!nPos.presentInList(this.getNeighbours()))
+                this.neighbours.add(nPos);
+        }
+        else {
+            ListIterator<NeighborPos> listIterator = neighbours.listIterator();
+            while(listIterator.hasNext()) {
+                if(listIterator.next().equals(nPos)) {
+                    listIterator.remove();
+                }
+            }
+        }
+    }
+
+    public void setNeighbours(List<NeighborPos> neighbours) {
+        this.neighbours = neighbours;
     }
 }

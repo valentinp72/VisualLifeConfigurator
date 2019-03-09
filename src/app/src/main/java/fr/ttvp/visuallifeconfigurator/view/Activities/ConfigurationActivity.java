@@ -1,10 +1,6 @@
-package fr.ttvp.visuallifeconfigurator.view;
+package fr.ttvp.visuallifeconfigurator.view.Activities;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -13,13 +9,13 @@ import android.widget.TextView;
 
 import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
+import fr.ttvp.visuallifeconfigurator.view.DialogCellChoosing;
+import fr.ttvp.visuallifeconfigurator.view.ResultCallback;
+import fr.ttvp.visuallifeconfigurator.view.ResultCallbackParam;
 
 
-public class ConfigurationActivity extends AppCompatActivity {
+public class ConfigurationActivity extends CustomActivity {
 
-    private Toolbar toolbar;
-    private ImageButton backButton;
-    private TextView name;
     private View divider;
 
     private LinearLayout selectedCells;
@@ -30,46 +26,24 @@ public class ConfigurationActivity extends AppCompatActivity {
     private Cell cell;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_configuration);
+    public int getContentView() {
+        return R.layout.activity_configuration;
+    }
 
-        //this.cell = (Cell) getIntent().getExtras().getSerializable("Cell");
-        this.cell = (Cell) getIntent().getSerializableExtra("Cell");
-        //this.callback = (ResultCallbackParam<Cell>) getIntent().getSerializableExtra("Callback");
-
-        this.toolbar    = findViewById(R.id.toolbar);
-        this.backButton = findViewById(R.id.cell_configuration_toolbar_back);
-        this.name       = findViewById(R.id.cell_configuration_toolbar_text);
+    @Override
+    protected void initComponents() {
+        this.cell = (Cell) this.getParameter("Cell");
+        this.addResult("cell", this.cell);
 
         this.divider       = findViewById(R.id.divider);
         this.selectedCells = findViewById(R.id.cell_configuration_selected);
         this.config        = findViewById(R.id.cell_configuration_list);
-
-        init();
-        System.out.println("coucou");
-
     }
 
-    private void init() {
+    @Override
+    protected void initView() {
         this.selectedCells.removeAllViews();
         this.config.removeAllViews();
-
-        // toolbar
-        toolbar.setTitle(cell.getName());
-        toolbar.setBackgroundColor(cell.getColorInt());
-        setSupportActionBar(toolbar);
-
-        name.setText(cell.getName());
-        name.setTextColor(cell.getMatchingColor());
-
-        backButton.setColorFilter(cell.getMatchingColor());
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ConfigurationActivity.this.finish();
-            }
-        });
 
         // header, selected area
         for(Cell c : cell.getCellsToCount()) {
@@ -79,7 +53,7 @@ public class ConfigurationActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     cell.getCellsToCount().remove(tmp);
-                    init();
+                    updateView();
                 }
             });
             this.selectedCells.addView(im);
@@ -94,7 +68,7 @@ public class ConfigurationActivity extends AppCompatActivity {
                     @Override
                     public void ended() {
                         cell.getCellsToCount().add(dialog.getCurrentCell());
-                        init();
+                        updateView();
                     }
                 });
             }
@@ -109,7 +83,21 @@ public class ConfigurationActivity extends AppCompatActivity {
             RelativeLayout line = createLineForCount(i);
             this.config.addView(line);
         }
+    }
 
+    @Override
+    public String getToolbarTitle() {
+        return cell.getName();
+    }
+
+    @Override
+    public int getToolbarBackgroundColor() {
+        return cell.getColorInt();
+    }
+
+    @Override
+    public int getToolbarTextColor() {
+        return cell.getMatchingColor();
     }
 
     private RelativeLayout createLineForCount(final int count) {
@@ -165,11 +153,4 @@ public class ConfigurationActivity extends AppCompatActivity {
         return view;
     }
 
-    @Override
-    public void finish() {
-        Intent data = new Intent();
-        data.putExtra("cell", this.cell);
-        setResult(RESULT_OK, data);
-        super.finish();
-    }
 }

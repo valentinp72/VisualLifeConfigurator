@@ -1,4 +1,4 @@
-package fr.ttvp.visuallifeconfigurator.view;
+package fr.ttvp.visuallifeconfigurator.view.Activities;
 
 import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 
 import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Persitance;
+import fr.ttvp.visuallifeconfigurator.view.AutomataRecyclerViewAdapter;
 
 public class MainActivity extends AppCompatActivity {
 

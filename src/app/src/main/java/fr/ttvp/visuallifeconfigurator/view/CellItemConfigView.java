@@ -4,24 +4,16 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.text.Layout;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.io.Serializable;
-
 import fr.ttvp.visuallifeconfigurator.R;
-import fr.ttvp.visuallifeconfigurator.model.Automata;
-import fr.ttvp.visuallifeconfigurator.model.AutomataLight;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
-import fr.ttvp.visuallifeconfigurator.view.ConfigurationActivity;
+import fr.ttvp.visuallifeconfigurator.view.Activities.ConfigurationActivity;
 import fr.ttvp.visuallifeconfigurator.view.Home.HomeTab;
 
 public class CellItemConfigView extends LinearLayout {

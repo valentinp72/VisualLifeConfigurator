@@ -15,6 +15,7 @@ import static android.app.Activity.RESULT_OK;
 public abstract class HomeTab extends Fragment {
 
     public static final int EDITED_CELL = 1;
+    public static final int EDITED_MAPS = 2;
 
     protected AutomataHome automataHome;
     protected Automata automata;

@@ -16,9 +16,9 @@ import android.widget.TextView;
 import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Automata;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
+import fr.ttvp.visuallifeconfigurator.view.Activities.CellEditionActivity;
 import fr.ttvp.visuallifeconfigurator.view.Home.AutomataHome;
 import fr.ttvp.visuallifeconfigurator.view.Home.HomeTab;
-import fr.ttvp.visuallifeconfigurator.view.Home.HomeTabCells;
 
 public class AutomataCellInListView extends LinearLayout {
 
