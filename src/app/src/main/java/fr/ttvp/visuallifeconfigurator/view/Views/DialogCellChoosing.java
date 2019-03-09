@@ -1,4 +1,4 @@
-package fr.ttvp.visuallifeconfigurator.view;
+package fr.ttvp.visuallifeconfigurator.view.Views;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -18,6 +18,7 @@ import java.util.List;
 
 import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
+import fr.ttvp.visuallifeconfigurator.view.ResultCallback;
 
 public class DialogCellChoosing extends Dialog {
 
@@ -38,7 +39,7 @@ public class DialogCellChoosing extends Dialog {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.fragment_dialog_cell_choosing);
-        
+
         this.ll = findViewById(R.id.dialog_cell_choosing);
         for(final Cell c : cells) {
             ImageButton imgBtn = new ImageButton(getContext());

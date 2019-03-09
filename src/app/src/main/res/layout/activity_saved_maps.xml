@@ -6,12 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".view.Activities.SavedMapsActivity">
 
-    <LinearLayout
-        android:id="@+id/saved_map_layout"
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </LinearLayout>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/saved_map_layout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </LinearLayout>
+
+    </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/saved_map_create"

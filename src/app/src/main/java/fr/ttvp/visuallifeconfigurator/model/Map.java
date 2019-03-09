@@ -1,10 +1,11 @@
 package fr.ttvp.visuallifeconfigurator.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Map {
+public class Map implements Serializable {
     private int[][] indexes;
     private int nLine;
     private int nCol;
@@ -69,6 +70,25 @@ public class Map {
         return cells;
     }
 
+    public int getCellID(int row, int col) {
+        return this.indexes[row][col];
+    }
+
+    public void setWidthHeightRatio(int ratio) {
+        // TODO: coder cette fonction de sorte qu'elle adapte la forme de la map
+        // => ajouter ou enlever des cellules sur les cotés
+        // a voir si ça se trouve pas plutot dans Simulator
+    }
+
+    public void bigger() {
+        // TODO: augmenter la taille de la map tout en suivant le ratio
+        // a voir si ça se trouve pas plutot dans Simulator
+    }
+
+    public void smaller() {
+        // TODO: réduire la taille de la map tout en suivant le ratio
+        // a voir si ça se trouve pas plutot dans Simulator
+    }
 
     public int getCols() {
         return nCol;

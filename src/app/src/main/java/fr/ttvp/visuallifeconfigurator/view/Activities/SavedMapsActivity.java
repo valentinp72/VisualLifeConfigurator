@@ -8,8 +8,10 @@ import android.widget.LinearLayout;
 import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Automata;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
+import fr.ttvp.visuallifeconfigurator.model.Map;
 import fr.ttvp.visuallifeconfigurator.model.Persitance;
 import fr.ttvp.visuallifeconfigurator.view.Activities.CustomActivity;
+import fr.ttvp.visuallifeconfigurator.view.Views.MapCard;
 
 public class SavedMapsActivity extends CustomActivity {
 
@@ -46,7 +48,9 @@ public class SavedMapsActivity extends CustomActivity {
 
     @Override
     protected void initView() {
-
+        Map map = Map.fromFile("map.exemple");
+        for(int i = 0 ; i < 10 ; i++)
+            this.layout.addView(new MapCard(this, map, automata));
     }
 
     @Override

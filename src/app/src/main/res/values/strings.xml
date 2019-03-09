@@ -27,4 +27,12 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dialog_cell_choosing_text">Please choose a cell type</string>
     <string name="title_activity_saved_maps">SavedMapsActivity</string>
+    <string name="map_name_placeholder">Map name placeholder</string>
+    <string name="map_last_used_date_placeholder">January 31st, 2019</string>
+    <string name="title_activity_map_playing">MapPlayingActivity</string>
+    <string name="play">Play</string>
+    <string name="forward">Forward</string>
+    <string name="pause">Pause</string>
+    <string name="increase_size">Increase size</string>
+    <string name="decrease_size">Decrease size</string>
 </resources>

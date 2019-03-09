@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:id="@+id/menu_playing_item_smaller"
+            android:onClick="clickSmaller"
+            android:icon="@drawable/ic_expand_more_gray_24dp"
+            android:title="@string/decrease_size" />
+        <item
+            android:id="@+id/menu_playing_item_pause"
+            android:onClick="clickPause"
+            android:icon="@drawable/ic_pause_gray_24dp"
+            android:title="@string/pause" />
+        <item
+            android:id="@+id/menu_playing_item_bigger"
+            android:onClick="clickBigger"
+            android:icon="@drawable/ic_expand_less_gray_24dp"
+            android:title="@string/increase_size" />
+</menu>

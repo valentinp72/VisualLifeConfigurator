@@ -1,4 +1,4 @@
-package fr.ttvp.visuallifeconfigurator.view;
+package fr.ttvp.visuallifeconfigurator.view.Views;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
