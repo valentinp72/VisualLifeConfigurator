@@ -7,12 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.ttvp.visuallifeconfigurator.model.Automata;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
 
 import static android.app.Activity.RESULT_OK;
 
 public abstract class HomeTab extends Fragment {
+
+    private static List<HomeTab> tabs = new ArrayList<>();
 
     public static final int EDITED_CELL = 1;
     public static final int EDITED_MAPS = 2;
@@ -27,6 +32,7 @@ public abstract class HomeTab extends Fragment {
         args.putSerializable("Automata", automata);
         args.putSerializable("AutomataHome", automataHome);
         tab.setArguments(args);
+        tabs.add(tab);
         return tab;
     }
 
@@ -67,7 +73,8 @@ public abstract class HomeTab extends Fragment {
                 automata.replaceCell(c);
                 // TODO: automata.save();
             }
-            initView();
+            for(HomeTab tab : tabs)
+                tab.initView();
         }
     }
 

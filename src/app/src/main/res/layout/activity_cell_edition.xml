@@ -20,10 +20,11 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:textColor="@android:color/tab_indicator_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:text="@string/cell_type_placeholder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="20dp"
                 android:maxLines="1"
                 android:inputType="text"
                 android:id="@+id/cell_edition_edit_name" />
@@ -36,6 +37,8 @@
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:layout_height="wrap_content">
 
             <TextView
@@ -56,6 +59,8 @@
             android:id="@+id/cell_edition_neighbour"
             android:background="@drawable/selectors"
             android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

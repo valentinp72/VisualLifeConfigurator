@@ -57,7 +57,7 @@ public class CellEditionActivity extends CustomActivity {
 
         colorPreview.setClickable(true);
         colorPreview.setFocusable(true);
-        colorPreview.setOnClickListener(new View.OnClickListener() {
+        colorArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int currentColor  = Color.parseColor(cell.getColor());
@@ -89,9 +89,6 @@ public class CellEditionActivity extends CustomActivity {
         });
 
         nameEditor.setText(cell.getName());
-        nameEditor.getBackground().setColorFilter(cell.getColorInt(), PorterDuff.Mode.SRC_ATOP);
-        setCursorColor(nameEditor, cell.getColorInt());
-        //setCursorPointerColor(nameEditor, cell.getColorInt());
         nameEditor.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -111,6 +108,9 @@ public class CellEditionActivity extends CustomActivity {
     protected void initView() {
         colorPreview.setColorFilter(cell.getColorInt());
         neighboursPreview.setText(Integer.toString(cell.getNeighbours().size()));
+        nameEditor.getBackground().setColorFilter(cell.getColorInt(), PorterDuff.Mode.SRC_ATOP);
+        setCursorColor(nameEditor, cell.getColorInt());
+        //setCursorPointerColor(nameEditor, cell.getColorInt());
     }
 
     @Override
@@ -163,7 +163,9 @@ public class CellEditionActivity extends CustomActivity {
     @Override
     protected void onChildActivityFinish(int resultCode, Intent data) {
         if(resultCode == EDITED_NEIGHBOURS) {
-            cell.setNeighbours(((Cell) data.getSerializableExtra("cell")).getNeighbours());
+            Cell c = (Cell) data.getSerializableExtra("cell");
+            cell.setNeighbours(c.getNeighbours());
+            cell.setTransitions(c.getTransitions());
         }
     }
 

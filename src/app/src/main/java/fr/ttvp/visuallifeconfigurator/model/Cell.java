@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -117,18 +118,25 @@ public class Cell implements Serializable {
     }
 
     public void setNeighbourStatus(NeighborPos nPos, boolean isChecked) {
+        List<Cell> trans = new ArrayList<>(Arrays.asList(transitions));
+
         if(isChecked) {
-            if(!nPos.presentInList(this.getNeighbours()))
+            if(!nPos.presentInList(this.getNeighbours())) {
                 this.neighbours.add(nPos);
+                trans.add(this);
+
+            }
         }
         else {
             ListIterator<NeighborPos> listIterator = neighbours.listIterator();
             while(listIterator.hasNext()) {
                 if(listIterator.next().equals(nPos)) {
                     listIterator.remove();
+                    trans.remove(trans.size() - 1);
                 }
             }
         }
+        this.transitions = trans.toArray(new Cell[0]);
     }
 
     public void setNeighbours(List<NeighborPos> neighbours) {
