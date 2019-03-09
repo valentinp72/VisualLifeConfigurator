@@ -19,6 +19,7 @@ public class Simulator {
         this.nLines = startingMap.getLines();
         this.nCols = startingMap.getCols();
         this.cells = startingMap.forAutomata(automata);
+        this.listeners = new ArrayList<>();
     }
 
     public void step() {
