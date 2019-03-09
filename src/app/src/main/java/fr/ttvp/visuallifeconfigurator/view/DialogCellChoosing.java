@@ -38,7 +38,7 @@ public class DialogCellChoosing extends Dialog {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.fragment_dialog_cell_choosing);
-
+        
         this.ll = findViewById(R.id.dialog_cell_choosing);
         for(final Cell c : cells) {
             ImageButton imgBtn = new ImageButton(getContext());

@@ -1,16 +1,13 @@
 package fr.ttvp.visuallifeconfigurator.view.Activities;
 
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ToggleButton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
 import fr.ttvp.visuallifeconfigurator.model.NeighborPos;
-import fr.ttvp.visuallifeconfigurator.view.NeighborPosAdapter;
+import fr.ttvp.visuallifeconfigurator.view.Adapters.NeighborPosAdapter;
 
 public class ChooseNeighborActivity extends CustomActivity {
 

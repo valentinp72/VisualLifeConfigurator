@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 
 import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Persitance;
-import fr.ttvp.visuallifeconfigurator.view.AutomataRecyclerViewAdapter;
+import fr.ttvp.visuallifeconfigurator.view.Adapters.AutomataRecyclerViewAdapter;
 
 public class MainActivity extends AppCompatActivity {
 

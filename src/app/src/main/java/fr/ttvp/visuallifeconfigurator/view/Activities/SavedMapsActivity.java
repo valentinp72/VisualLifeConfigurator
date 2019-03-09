@@ -51,7 +51,7 @@ public class SavedMapsActivity extends CustomActivity {
 
     @Override
     public String getToolbarTitle() {
-        return automata.getName();
+        return getResources().getString(R.string.automata_map, automata.getName());
     }
 
 }

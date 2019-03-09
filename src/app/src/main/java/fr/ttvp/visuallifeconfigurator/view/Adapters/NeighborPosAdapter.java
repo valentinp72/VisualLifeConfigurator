@@ -1,4 +1,4 @@
-package fr.ttvp.visuallifeconfigurator.view;
+package fr.ttvp.visuallifeconfigurator.view.Adapters;
 
 import android.content.Context;
 import android.view.View;

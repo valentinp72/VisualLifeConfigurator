@@ -1,23 +1,20 @@
 package fr.ttvp.visuallifeconfigurator.view.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.view.View;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 import fr.ttvp.visuallifeconfigurator.R;
-import fr.ttvp.visuallifeconfigurator.model.Cell;
 
 public abstract class CustomActivity extends AppCompatActivity {
 
@@ -94,6 +91,7 @@ public abstract class CustomActivity extends AppCompatActivity {
         String askedTitle = this.getToolbarTitle();
         int textColor = this.getToolbarTextColor();
         int backColor = this.getToolbarBackgroundColor();
+        int tintColor = this.manipulateColor(backColor, 0.8f);
 
         // title
         CharSequence title = Html.fromHtml("<font color='" + getHTMLColor(textColor) + "'>" + askedTitle + "</font>");
@@ -106,6 +104,9 @@ public abstract class CustomActivity extends AppCompatActivity {
 
         // background
         this.actionBar.setBackgroundDrawable(new ColorDrawable(backColor));
+
+        // status
+        getWindow().setStatusBarColor(tintColor);
     }
 
     @Override
@@ -135,6 +136,17 @@ public abstract class CustomActivity extends AppCompatActivity {
             onChildActivityFinish(requestCode, data);
             updateView();
         }
+    }
+
+    public static int manipulateColor(int color, float factor) {
+        int a = Color.alpha(color);
+        int r = Math.round(Color.red(color) * factor);
+        int g = Math.round(Color.green(color) * factor);
+        int b = Math.round(Color.blue(color) * factor);
+        return Color.argb(a,
+                Math.min(r,255),
+                Math.min(g,255),
+                Math.min(b,255));
     }
 
 }
