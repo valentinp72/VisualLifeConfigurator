@@ -173,4 +173,21 @@ public class Persitance {
     public void setAssetManager(AssetManager assetManager) {
         this.assetManager = assetManager;
     }
+
+
+    // returns the maps of a particular automata
+    public List<MapLight> getLightMaps(long id) {
+        final String path = "automata_" + id;
+        String mapFile = loadFile(path + "/maps.txt");
+        List<String> lines = new ArrayList<String>(
+                Arrays.asList(mapFile.split("\n"));
+        );
+        List<MapLight> maps new ArrayList<MapLight>;
+        for (String line: lines) {
+            String[] id_name = line.split(' ', 2);
+            long id = Integer.parseInt(id_name[0]);
+            maps.add(new MapLight(id, id_name[1], path));
+        }
+        return maps;
+    }
 }

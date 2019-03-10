@@ -8,6 +8,7 @@ public class Map {
     private int[][] indexes;
     private int nLine;
     private int nCol;
+    private long id = -1;
 
     public Map(int nLine, int nCol, int[][] indexes) {
         this.nLine = nLine;
@@ -23,7 +24,7 @@ public class Map {
         return new Map(nLine, nCol, indexes);
     }
 
-    public static Map fromFile(String filename) {
+    public static Map fromFile(String filename, long id) {
         Persitance p = Persitance.getInstance();
         List<String> lines = new ArrayList<String>(
                 Arrays.asList(p.loadFile(filename).split("\n"))
@@ -40,8 +41,10 @@ public class Map {
                 indexes[i][j] = Integer.parseInt(line[j]);
             }
         }
+        Map m = new Map(nLine, nCol, indexes);
+        m.id = id;
 
-        return new Map(nLine, nCol, indexes);
+        return m;
     }
 
     public Cell[][] forAutomata(Automata a) {

@@ -49,4 +49,8 @@ public class Automata implements Serializable {
             }
         }
     }
+
+    public List<MapLight> getLightMaps() {
+        return Persitance.getInstance().getLightMaps(this.automataLight.getId());
+    }
 }
