@@ -57,7 +57,7 @@ public class MapCard extends LinearLayout {
     private void init() {
 
         mapName.setText(mapLight.getName());
-        mapDate.setText(dateFormat.format(mapLight.getLastPlayed()));
+//        mapDate.setText(dateFormat.format(mapLight.getLastPlayed()));
 
         editBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -70,7 +70,7 @@ public class MapCard extends LinearLayout {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, MapPlayingActivity.class);
-                intent.putExtra(MapPlayingActivity.ARG_MAP, mapLight.getRealMap());
+                intent.putExtra(MapPlayingActivity.ARG_MAP, mapLight.getMap());
                 intent.putExtra(MapPlayingActivity.ARG_AUTOMATA, automata);
                 context.launchActivity(intent, PLAYED_MAP);
             }

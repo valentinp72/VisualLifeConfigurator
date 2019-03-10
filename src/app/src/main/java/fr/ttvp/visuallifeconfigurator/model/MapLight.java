@@ -1,6 +1,5 @@
 package fr.ttvp.visuallifeconfigurator.model;
 
-<<<<<<< HEAD
 public class MapLight {
     private String name;
     private String path;
@@ -14,13 +13,13 @@ public class MapLight {
 
 
     public Map getMap() {
-        return Map.fromFile(path, this);
+        return Map.fromFile(path, id);
     }
 
-    public String setPath(String path) {
+    public void setPath(String path) {
         this.path = path;
     }
-    public String setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
     public String getPath() {

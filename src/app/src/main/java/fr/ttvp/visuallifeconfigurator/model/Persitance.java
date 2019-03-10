@@ -139,43 +139,43 @@ public class Persitance {
         return automata;
     }
 
-    public List<MapLight> getSpecificMapLights(AutomataLight automataLight) {
-        Document doc;
-        List<MapLight> mapLights = new ArrayList<>();
+//    public List<MapLight> getSpecificMapLights(AutomataLight automataLight) {
+//        Document doc;
+//        List<MapLight> mapLights = new ArrayList<>();
+//
+//        try {
+//            doc = getDocumentXML("automata_" + automataLight.getId() + "/maps.xml");
+//        }
+//        catch (Exception e) {
+//            // bouuuuh
+//            return null;
+//        }
+//
+//        NodeList maps = doc.getElementsByTagName("map");
+//
+//        // creation of each cells to be later accessible
+//        for (int i = 0 ; i < maps.getLength() ; i++) {
+//            Element c = (Element) maps.item(i);
+//            String name = Persitance.getContentXML(c, "name");
+//            int timestamp = Integer.parseInt(Persitance.getContentXML(c, "lastPlayed"));
+//            Date lastPlayed = new Date((long)timestamp*1000);
+//            String realFileName = "maps/" + Persitance.getContentXML(c, "realFileName") + ".map";
+//            mapLights.add(new MapLight(name, lastPlayed, realFileName));
+//        }
+//
+//        return mapLights;
+//    }
 
-        try {
-            doc = getDocumentXML("automata_" + automataLight.getId() + "/maps.xml");
-        }
-        catch (Exception e) {
-            // bouuuuh
-            return null;
-        }
-
-        NodeList maps = doc.getElementsByTagName("map");
-
-        // creation of each cells to be later accessible
-        for (int i = 0 ; i < maps.getLength() ; i++) {
-            Element c = (Element) maps.item(i);
-            String name = Persitance.getContentXML(c, "name");
-            int timestamp = Integer.parseInt(Persitance.getContentXML(c, "lastPlayed"));
-            Date lastPlayed = new Date((long)timestamp*1000);
-            String realFileName = "maps/" + Persitance.getContentXML(c, "realFileName") + ".map";
-            mapLights.add(new MapLight(name, lastPlayed, realFileName));
-        }
-
-        return mapLights;
-    }
-
-    public List<MapLight> getCompatibleMapLights(AutomataLight automataLight) {
-        List<AutomataLight> als = this.getAutomataLights();
-        List<MapLight> mapLights = new ArrayList<>();
-        for(AutomataLight al : als) {
-            if(al.getId() != automataLight.getId()) {
-                mapLights.addAll(this.getSpecificMapLights(al));
-            }
-        }
-        return mapLights;
-    }
+//    public List<MapLight> getCompatibleMapLights(AutomataLight automataLight) {
+//        List<AutomataLight> als = this.getAutomataLights();
+//        List<MapLight> mapLights = new ArrayList<>();
+//        for(AutomataLight al : als) {
+//            if(al.getId() != automataLight.getId()) {
+//                mapLights.addAll(this.getSpecificMapLights(al));
+//            }
+//        }
+//        return mapLights;
+//    }
 
     public String loadFile(String inFile) {
         String tContents = "";
@@ -216,17 +216,18 @@ public class Persitance {
 
 
     // returns the maps of a particular automata
-    public List<MapLight> getLightMaps(long id) {
+    public List<MapLight> getLightMaps(AutomataLight a) {
+        final long id = a.getId();
         final String path = "automata_" + id;
         String mapFile = loadFile(path + "/maps.txt");
         List<String> lines = new ArrayList<String>(
-                Arrays.asList(mapFile.split("\n"));
+                Arrays.asList(mapFile.split("\n"))
         );
-        List<MapLight> maps new ArrayList<MapLight>;
+        List<MapLight> maps = new ArrayList<MapLight>();
         for (String line: lines) {
-            String[] id_name = line.split(' ', 2);
-            long id = Integer.parseInt(id_name[0]);
-            maps.add(new MapLight(id, id_name[1], path));
+            String[] id_name = line.split(" ", 2);
+            long mapid = Integer.parseInt(id_name[0]);
+            maps.add(new MapLight(mapid, id_name[1], path));
         }
         return maps;
     }
