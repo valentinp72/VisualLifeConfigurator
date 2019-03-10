@@ -58,14 +58,14 @@ public class Simulator {
     //    calculate the real index of the col (wrapping around if needed)
     private int getCol(int col) {
         if (col >= nCols) return col % nCols;
-        if (col < 0) return nCols - col;
+        if (col < 0) return nCols + col;
         return col;
     }
 
     //    calculate the real index of the line (wrapping around if needed)
     private int getLine(int line) {
         if (line >= nLines) return line % nLines;
-        if (line < 0) return nLines - line;
+        if (line < 0) return nLines + line;
         return line;
     }
 

@@ -6,7 +6,7 @@
     <default>true</default>
 
     <cell>
-        <id>0</id>
+        <id>1</id>
         <default>false</default>
         <name>Alive</name>
         <color>#ffffff</color>
@@ -31,7 +31,7 @@
     </cell>
 
     <cell>
-        <id>1</id>
+        <id>0</id>
         <default>true</default>
         <name>Dead</name>
         <color>#000000</color>
