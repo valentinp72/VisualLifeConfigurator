@@ -13,7 +13,6 @@
         android:paddingBottom="10dp"
         android:clickable="true"
         android:focusable="true"
-        android:background="@drawable/selectors"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textSize="18sp"
