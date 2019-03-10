@@ -1,6 +1,8 @@
 package fr.ttvp.visuallifeconfigurator.model;
 
-public class MapLight {
+import java.io.Serializable;
+
+public class MapLight implements Serializable {
     private String name;
     private String path;
     private long id;

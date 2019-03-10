@@ -166,16 +166,16 @@ public class Persitance {
 //        return mapLights;
 //    }
 
-//    public List<MapLight> getCompatibleMapLights(AutomataLight automataLight) {
-//        List<AutomataLight> als = this.getAutomataLights();
-//        List<MapLight> mapLights = new ArrayList<>();
-//        for(AutomataLight al : als) {
-//            if(al.getId() != automataLight.getId()) {
-//                mapLights.addAll(this.getSpecificMapLights(al));
-//            }
-//        }
-//        return mapLights;
-//    }
+    public List<MapLight> getCompatibleMapLights(AutomataLight automataLight) {
+        List<AutomataLight> als = this.getAutomataLights();
+        List<MapLight> mapLights = new ArrayList<>();
+        for(AutomataLight al : als) {
+            if(al.getId() != automataLight.getId()) {
+                mapLights.addAll(this.getLightMaps(al));
+            }
+        }
+        return mapLights;
+    }
 
     public String loadFile(String inFile) {
         String tContents = "";

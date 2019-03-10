@@ -70,7 +70,7 @@ public class MapCard extends LinearLayout {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, MapPlayingActivity.class);
-                intent.putExtra(MapPlayingActivity.ARG_MAP, mapLight.getMap());
+                intent.putExtra(MapPlayingActivity.ARG_MAP, mapLight);
                 intent.putExtra(MapPlayingActivity.ARG_AUTOMATA, automata);
                 context.launchActivity(intent, PLAYED_MAP);
             }

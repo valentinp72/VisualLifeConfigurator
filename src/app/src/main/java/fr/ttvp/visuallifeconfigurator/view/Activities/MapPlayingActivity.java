@@ -17,17 +17,19 @@ import android.widget.GridView;
 import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Automata;
 import fr.ttvp.visuallifeconfigurator.model.Map;
+import fr.ttvp.visuallifeconfigurator.model.MapLight;
 import fr.ttvp.visuallifeconfigurator.model.Simulator;
 import fr.ttvp.visuallifeconfigurator.view.Views.Grid2DView;
 
 public class MapPlayingActivity extends CustomActivity {
 
-    public static final String ARG_MAP = "Map";
+    public static final String ARG_MAP = "MapLight";
     public static final String ARG_AUTOMATA = "Automata";
 
     private boolean playing;
     private Automata automata;
     private Map map;
+    private MapLight mapLight;
     private Simulator simulator;
 
     private BottomNavigationView bottomNavigationViewPlaying;
@@ -55,7 +57,8 @@ public class MapPlayingActivity extends CustomActivity {
     @Override
     protected void initParameters() {
         this.playing   = false;
-        this.map       = (Map) getParameter(ARG_MAP);
+        this.mapLight  = (MapLight) getParameter(ARG_MAP);
+        this.map       = mapLight.getMap();
         this.automata  = (Automata) getParameter(ARG_AUTOMATA);
         this.simulator = new Simulator(automata, map);
     }
@@ -88,8 +91,7 @@ public class MapPlayingActivity extends CustomActivity {
 
     @Override
     public String getToolbarTitle() {
-        //return map.toString();
-        return "Replace the name here";
+        return mapLight.getName();
     }
 
     private void showCorrespondingBottomNav() {
@@ -107,12 +109,14 @@ public class MapPlayingActivity extends CustomActivity {
         this.playing = false;
         item.setChecked(true);
         updateView();
+        simulator.pause();
     }
 
     public void clickPlay(MenuItem item) {
         this.playing = true;
         item.setChecked(true);
         updateView();
+        simulator.play();
     }
 
     public void clickForward(MenuItem item) {

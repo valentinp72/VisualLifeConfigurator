@@ -60,13 +60,13 @@ public class SavedMapsActivity extends CustomActivity {
         Persitance persistance = Persitance.getInstance();
         AutomataLight automataLight = automata.getAutomataLight();
         List<MapLight> mapLights = persistance.getLightMaps(automataLight);
-//        List<MapLight> compatibleMapLights = persistance.getCompatibleMapLights(automataLight);
+        List<MapLight> compatibleMapLights = persistance.getCompatibleMapLights(automataLight);
 
         for(MapLight mapLight : mapLights)
             this.specific.addView(new MapCard(this, mapLight, automata));
 
-//        for(MapLight mapLight : compatibleMapLights)
-//            this.compatible.addView(new MapCard(this, mapLight, automata));
+        for(MapLight mapLight : compatibleMapLights)
+            this.compatible.addView(new MapCard(this, mapLight, automata));
     }
 
     @Override

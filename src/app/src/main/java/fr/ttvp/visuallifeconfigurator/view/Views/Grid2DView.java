@@ -40,7 +40,7 @@ public class Grid2DView extends View implements SimulatorListener {
     }
 
     public void redraw() {
-        invalidate();
+        postInvalidate();
     }
 
     @Override

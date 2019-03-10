@@ -13,6 +13,7 @@ public class Simulator {
     private Cell[][] cells;
     private int nLines;
     private int nCols;
+    private SimulatorThread playingLoop;
 
     public Simulator(Automata automata, Map startingMap) {
 //        this.automata = automata;
@@ -20,6 +21,8 @@ public class Simulator {
         this.nCols = startingMap.getCols();
         this.cells = startingMap.forAutomata(automata);
         this.listeners = new ArrayList<>();
+        this.playingLoop = new SimulatorThread(this);
+        this.playingLoop.start();
     }
 
     public void step() {
@@ -34,6 +37,14 @@ public class Simulator {
         // notify end
 
         this.warnChangeListeners();
+    }
+
+    public void pause() {
+        this.playingLoop.pause();
+    }
+
+    public void play() {
+        this.playingLoop.play();
     }
 
     private void addCommand(List<Command> cmds, int line, int col) {
