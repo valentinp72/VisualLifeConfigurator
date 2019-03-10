@@ -35,4 +35,5 @@
     <string name="pause">Pause</string>
     <string name="increase_size">Increase size</string>
     <string name="decrease_size">Decrease size</string>
+    <string name="compatible_maps">Compatible maps:</string>
 </resources>

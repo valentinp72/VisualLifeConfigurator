@@ -13,10 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 
 import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Automata;
 import fr.ttvp.visuallifeconfigurator.model.Map;
+import fr.ttvp.visuallifeconfigurator.model.MapLight;
 import fr.ttvp.visuallifeconfigurator.view.Activities.CustomActivity;
 import fr.ttvp.visuallifeconfigurator.view.Activities.MapPlayingActivity;
 
@@ -31,13 +33,14 @@ public class MapCard extends LinearLayout {
 
     private CustomActivity context;
 
-    private Map map;
+    private MapLight mapLight;
     private Automata automata;
+    private final DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT, getResources().getConfiguration().locale);
 
-    public MapCard(CustomActivity context, Map map, Automata automata) {
+    public MapCard(CustomActivity context, MapLight mapLight, Automata automata) {
         super(context);
         this.context  = context;
-        this.map      = map;
+        this.mapLight = mapLight;
         this.automata = automata;
 
         LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -53,8 +56,8 @@ public class MapCard extends LinearLayout {
 
     private void init() {
 
-        mapName.setText("Salut");
-        mapDate.setText("02/09/2019");
+        mapName.setText(mapLight.getName());
+        mapDate.setText(dateFormat.format(mapLight.getLastPlayed()));
 
         editBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -67,7 +70,7 @@ public class MapCard extends LinearLayout {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, MapPlayingActivity.class);
-                intent.putExtra(MapPlayingActivity.ARG_MAP, map);
+                intent.putExtra(MapPlayingActivity.ARG_MAP, mapLight.getRealMap());
                 intent.putExtra(MapPlayingActivity.ARG_AUTOMATA, automata);
                 context.launchActivity(intent, PLAYED_MAP);
             }
