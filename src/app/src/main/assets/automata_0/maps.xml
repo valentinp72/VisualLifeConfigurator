@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<maps>
+	<map>
+		<name>Checkerboard</name>
+		<lastPlayed>0</lastPlayed>
+		<realFileName>checkerboard</realFileName>
+	</map>
+
+	<map>
+		<name>Test</name>
+		<lastPlayed>0</lastPlayed>
+		<realFileName>test</realFileName>
+	</map>
+</maps>

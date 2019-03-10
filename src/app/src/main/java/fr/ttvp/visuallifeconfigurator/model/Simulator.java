@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Simulator {
-//    private Automata automata;
+
+    //    private Automata automata;
+    private List<SimulatorListener> listeners;
     private Cell[][] cells;
     private int nLines;
     private int nCols;
@@ -17,6 +19,7 @@ public class Simulator {
         this.nLines = startingMap.getLines();
         this.nCols = startingMap.getCols();
         this.cells = startingMap.forAutomata(automata);
+        this.listeners = new ArrayList<>();
     }
 
     public void step() {
@@ -29,6 +32,8 @@ public class Simulator {
         // notify begin
         for (Command cmd : cmds) cmd.apply(this.cells);
         // notify end
+
+        this.warnChangeListeners();
     }
 
     private void addCommand(List<Command> cmds, int line, int col) {
@@ -67,4 +72,22 @@ public class Simulator {
     public Map getMap() {
         return Map.fromCells(nLines, nCols, cells);
     }
+
+    // add a listener
+    public void addListener(SimulatorListener listener) {
+        this.listeners.add(listener);
+    }
+
+    // remove a specific listener
+    public void removeListener(SimulatorListener listener) {
+        this.listeners.remove(listener);
+    }
+
+    // prevent the listeners that a changed in the map occured
+    private void warnChangeListeners() {
+        for(SimulatorListener simulatorListener : this.listeners) {
+            simulatorListener.updated();
+        }
+    }
+
 }

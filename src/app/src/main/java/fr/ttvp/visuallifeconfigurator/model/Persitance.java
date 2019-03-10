@@ -4,7 +4,10 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
@@ -55,7 +58,6 @@ public class Persitance {
 
         return list;
     }
-
 
     public Automata getAutomata(AutomataLight automataLight) {
 
@@ -135,6 +137,44 @@ public class Persitance {
             c.setOriginAutomata(automata);
         }
         return automata;
+    }
+
+    public List<MapLight> getSpecificMapLights(AutomataLight automataLight) {
+        Document doc;
+        List<MapLight> mapLights = new ArrayList<>();
+
+        try {
+            doc = getDocumentXML("automata_" + automataLight.getId() + "/maps.xml");
+        }
+        catch (Exception e) {
+            // bouuuuh
+            return null;
+        }
+
+        NodeList maps = doc.getElementsByTagName("map");
+
+        // creation of each cells to be later accessible
+        for (int i = 0 ; i < maps.getLength() ; i++) {
+            Element c = (Element) maps.item(i);
+            String name = Persitance.getContentXML(c, "name");
+            int timestamp = Integer.parseInt(Persitance.getContentXML(c, "lastPlayed"));
+            Date lastPlayed = new Date((long)timestamp*1000);
+            String realFileName = "maps/" + Persitance.getContentXML(c, "realFileName") + ".map";
+            mapLights.add(new MapLight(name, lastPlayed, realFileName));
+        }
+
+        return mapLights;
+    }
+
+    public List<MapLight> getCompatibleMapLights(AutomataLight automataLight) {
+        List<AutomataLight> als = this.getAutomataLights();
+        List<MapLight> mapLights = new ArrayList<>();
+        for(AutomataLight al : als) {
+            if(al.getId() != automataLight.getId()) {
+                mapLights.addAll(this.getSpecificMapLights(al));
+            }
+        }
+        return mapLights;
     }
 
     public String loadFile(String inFile) {

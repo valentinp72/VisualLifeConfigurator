@@ -9,9 +9,8 @@ import android.widget.TextView;
 
 import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
-import fr.ttvp.visuallifeconfigurator.view.DialogCellChoosing;
+import fr.ttvp.visuallifeconfigurator.view.Views.DialogCellChoosing;
 import fr.ttvp.visuallifeconfigurator.view.ResultCallback;
-import fr.ttvp.visuallifeconfigurator.view.ResultCallbackParam;
 
 
 public class ConfigurationActivity extends CustomActivity {
@@ -20,8 +19,6 @@ public class ConfigurationActivity extends CustomActivity {
 
     private LinearLayout selectedCells;
     private LinearLayout config;
-
-    private ResultCallbackParam<Cell> callback;
 
     private Cell cell;
 

@@ -12,9 +12,13 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".view.Activities.MapPlayingActivity"
+            android:label="@string/title_activity_map_playing"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".view.Activities.SavedMapsActivity"
             android:label="@string/title_activity_saved_maps"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".view.Activities.ConfigurationActivity"
             android:label="@string/title_activity_configuration"
@@ -22,8 +26,7 @@
         <activity
             android:name=".view.Activities.CellEditionActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".view.Activities.ChooseNeighborActivity">
-        </activity>
+        <activity android:name=".view.Activities.ChooseNeighborActivity"></activity>
         <activity
             android:name=".view.Home.AutomataHome"
             android:label="@string/title_activity_automata_home"

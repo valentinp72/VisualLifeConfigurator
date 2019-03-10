@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_paused_item_space"
+        android:onClick="clickSpace"
+        android:title="" />
+    <item
+        android:id="@+id/menu_paused_item_play"
+        android:onClick="clickPlay"
+        android:icon="@drawable/ic_play_arrow_gray_24dp"
+        android:title="@string/play" />
+    <item
+        android:id="@+id/menu_paused_item_forward"
+        android:onClick="clickForward"
+        android:icon="@drawable/ic_skip_next_gray_24dp"
+        android:title="@string/forward" />
+</menu>

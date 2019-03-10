@@ -5,4 +5,7 @@
     <color name="colorAccent">#009688</color>
 
     <color name="colorClicked">#DEDEDE</color>
+    <color name="gray">#505050</color>
+    <color name="selected_item">#FF5722</color>
+    <color name="bottom_bar">#FAFAFA</color>
 </resources>
