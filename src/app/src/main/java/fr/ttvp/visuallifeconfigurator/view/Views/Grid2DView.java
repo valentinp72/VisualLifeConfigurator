@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.support.design.widget.BottomNavigationView;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -21,14 +22,16 @@ public class Grid2DView extends View implements SimulatorListener {
     private Paint[] paintForCellsID;
     private Simulator simulator;
     private Map currentMap;
+    private BottomNavigationView bNav;
 
-    public Grid2DView(Context context, Automata automata, Simulator simulator) {
+    public Grid2DView(Context context, Automata automata, Simulator simulator, BottomNavigationView bNav) {
         super(context);
 
         this.automata   = automata;
         this.simulator  = simulator;
         this.currentMap = simulator.getMap();
         this.paintForCellsID = getColorsForCellsID();
+        this.bNav = bNav;
 
         this.simulator.addListener(this);
     }
@@ -46,23 +49,28 @@ public class Grid2DView extends View implements SimulatorListener {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(Color.LTGRAY);
+        final int height = getHeight() - bNav.getHeight();
+        final int width = getWidth();
+        final int cols = currentMap.getCols();
+        final int lines = currentMap.getLines();
 
-        int cellSize = Math.min(getWidth()  / currentMap.getCols(), getHeight() / currentMap.getLines());
+        int cellSize = Math.min(width  / cols, height / lines);
 
-        int width  = currentMap.getCols() * cellSize;
-        int height = currentMap.getLines() * cellSize;
+        final int drawWidth  = cols * cellSize;
+        final int drawHeight = lines * cellSize;
 
-        int xOffset = (getWidth()  - width)  / 2;
-        int yOffset = (getHeight() - height) / 2;
+        int xOffset = (width  - drawWidth)  / 2;
+        int yOffset = (height - drawHeight) / 2;
+        final int margin = 1;
 
-        for(int i = 0 ; i < currentMap.getLines() ; i++) {
-            for(int j = 0 ; j < currentMap.getCols() ; j++) {
+        for(int i = 0 ; i < lines ; i++) {
+            for(int j = 0 ; j < cols ; j++) {
                 int cellID = currentMap.getCellID(i, j);
                 canvas.drawRect(
-                        xOffset + j * cellSize,
-                        yOffset + i * cellSize,
-                        xOffset + (j+1) * cellSize,
-                        yOffset + (i+1) * cellSize,
+                        xOffset + j * cellSize + margin,
+                        yOffset + i * cellSize + margin,
+                        xOffset + (j+1) * cellSize - margin,
+                        yOffset + (i+1) * cellSize - margin,
                         this.paintForCellsID[cellID]);
             }
         }

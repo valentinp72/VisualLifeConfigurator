@@ -80,7 +80,7 @@ public class MapPlayingActivity extends CustomActivity {
         this.pauseBtn = menuPlay.findItem(R.id.menu_playing_item_pause).setChecked(true);
         this.incrBtn  = menuPlay.findItem(R.id.menu_playing_item_bigger);
 
-        this.grid = new Grid2DView(this, automata, simulator);
+        this.grid = new Grid2DView(this, automata, simulator, this.bottomNavigationViewPaused);
         this.contentLayout.addView(grid);
     }
 
