@@ -20,13 +20,9 @@ import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.os.Environment;
 import android.util.Log;
 
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilder;
