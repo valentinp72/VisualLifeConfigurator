@@ -32,7 +32,6 @@
 
         <LinearLayout
             android:id="@+id/cell_edition_color"
-            android:background="@drawable/selectors"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
@@ -57,7 +56,6 @@
 
         <LinearLayout
             android:id="@+id/cell_edition_neighbour"
-            android:background="@drawable/selectors"
             android:orientation="horizontal"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
