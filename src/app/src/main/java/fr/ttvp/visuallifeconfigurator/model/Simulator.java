@@ -57,7 +57,12 @@ public class Simulator {
             final int nl = getLine(line + neigh.getDeltaY());
             final int nc = getCol(col + neigh.getDeltaX());
             final Cell cur = this.cells[nl][nc];
-            if (toCount.contains(cur)) neighborCounter += 1;
+            for (Cell c: toCount) {
+                if (c.getId() == cur.getId()) {
+                    neighborCounter += 1;
+                    break;
+                }
+            }
         }
 
         final Cell newCell = cell.getTransitions()[neighborCounter];

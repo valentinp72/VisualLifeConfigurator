@@ -129,11 +129,11 @@ public class Cell implements Serializable {
         }
         else {
             ListIterator<NeighborPos> listIterator = neighbours.listIterator();
-            while(listIterator.hasNext()) {
-                if(listIterator.next().equals(nPos)) {
-                    listIterator.remove();
-                    trans.remove(trans.size() - 1);
-                }
+            NeighborPos cur = null;
+            while(listIterator.hasNext() && !((cur = listIterator.next()).equals(nPos)));
+            if(cur != null && cur.equals(nPos)) {
+                neighbours.remove(cur);
+                trans.remove(trans.size() - 1);
             }
         }
         this.transitions = trans.toArray(new Cell[0]);
