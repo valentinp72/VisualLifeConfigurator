@@ -161,7 +161,7 @@ public class Persitance {
         }
     }
 
-    private void resetFiles() {
+    public void resetFiles() {
         copyFileOrDir(this.context.getFilesDir().toString(), "");
     }
 
