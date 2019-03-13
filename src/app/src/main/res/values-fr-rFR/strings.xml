@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Visual Life Configurator</string>
+    <string name="title_activity_automata_home">AutomataHomeActivity</string>
+    <string name="tab_cells">Cellules</string>
+    <string name="tab_configuration">Configuration</string>
+    <string name="tab_play">Jouer</string>
+    <string name="action_settings">Règlages</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="automata_home_placeholder">{automata home page}</string>
+    <string name="default_text">Défaut:</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="button_saved">Enregistrées</string>
+    <string name="button_random">Aléatoire</string>
+    <string name="neighbours">Voisins</string>
+    <string name="automata_map">%1$s cartes</string>
+    <string name="neighbours_with_name">%1$s voisins</string>
+    <string name="color">Couleur</string>
+    <string name="neighbours_count_placeholder">{{0}}</string>
+    <string name="cell_type_placeholder">Type de cellule</string>
+    <string name="title_activity_configuration">ConfigurationActivity</string>
+    <string name="cell_configuration_expl">Dépend du nombre de</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dialog_cell_choosing_text">Choissisez un type de cellule</string>
+    <string name="title_activity_saved_maps">SavedMapsActivity</string>
+    <string name="map_name_placeholder">Map name placeholder</string>
+    <string name="map_last_used_date_placeholder">January 31st, 2019</string>
+    <string name="title_activity_map_playing">MapPlayingActivity</string>
+    <string name="play">Jouer</string>
+    <string name="forward">Avancer</string>
+    <string name="pause">Pause</string>
+    <string name="increase_size">Augmenter la taille</string>
+    <string name="decrease_size">Diminuer la taille</string>
+    <string name="compatible_maps">Cartes compatibles:</string>
+    <string name="reset_default_games">Remettre les jeux à zéro</string>
+</resources>
