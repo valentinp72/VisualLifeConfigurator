@@ -1,34 +1,44 @@
 package fr.ttvp.visuallifeconfigurator.model;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.content.Context;
 import android.content.res.AssetManager;
+import android.util.Log;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 public class Persitance {
 
+    private final static String OUTPUT_FOLDER   = "files";
+    private final static String AUTOMATAS_FILE  = "automata_ids.txt";
+    private final static String MAP_FOLDER      = "maps/";
+    private final static String AUTOMATA_CONFIG = "config.xml";
+    private final static String MAPS_CONFIG      = "maps.txt";
+
     private static Persitance instance;
     private AssetManager assetManager;
+    private Context context;
 
     private Persitance() {
 
@@ -40,9 +50,174 @@ public class Persitance {
         return instance;
     }
 
+    /***********
+     * FILE IO *
+     ***********/
+
+    public String getDevicePath(String path) {
+        return this.context.getFilesDir() + "/" + OUTPUT_FOLDER + '/' + path;
+    }
+
+    public void writeFile(String data, String path) {
+        try {
+            File file = new File(getDevicePath(path));
+            FileOutputStream fileOutput = new FileOutputStream(file);
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutput);
+            outputStreamWriter.write(data);
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "Write to file failed " + e.toString());
+        }
+    }
+
+    public String loadFile(String path) {
+        String ret = "";
+
+        // if the file does not exist, we copy them (all) from the asset
+        File f = new File(getDevicePath(AUTOMATAS_FILE));
+        if(!f.exists())
+            resetFiles();
+
+        try {
+            InputStream inputStream = new FileInputStream(getDevicePath(path));
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String receiveString = "";
+            StringBuilder stringBuilder = new StringBuilder();
+
+            while ((receiveString = bufferedReader.readLine()) != null) {
+                stringBuilder.append(receiveString + "\n");
+            }
+
+            inputStream.close();
+            ret = stringBuilder.toString();
+        }
+        catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        }
+
+        return ret;
+    }
+
+    /************************************************
+     * FROM ASSET TO DEVICE STORAGE                 *
+     * https://stackoverflow.com/a/22733626/7625364 *
+     ************************************************/
+
+
+    private void copyFileOrDir(String TARGET_BASE_PATH, String path) {
+        String assets[] = null;
+        try {
+            assets = assetManager.list(path);
+            if (assets.length == 0) {
+                copyFile(TARGET_BASE_PATH, path);
+            } else {
+                String fullPath =  TARGET_BASE_PATH + "/" + path;
+                File dir = new File(fullPath);
+                if (!dir.exists() && !path.startsWith("images") && !path.startsWith("sounds") && !path.startsWith("webkit"))
+                    dir.mkdirs();
+                for (int i = 0; i < assets.length; ++i) {
+                    String p;
+                    if (path.equals(""))
+                        p = "";
+                    else
+                        p = path + "/";
+
+                    if (!path.startsWith("images") && !path.startsWith("sounds") && !path.startsWith("webkit"))
+                        copyFileOrDir(TARGET_BASE_PATH, p + assets[i]);
+                }
+            }
+        } catch (IOException ex) {
+            Log.e("tag", "I/O Exception", ex);
+        }
+    }
+
+    private void copyFile(String TARGET_BASE_PATH, String filename) {
+        InputStream in = null;
+        OutputStream out = null;
+        String newFileName = null;
+        try {
+            in = assetManager.open(filename);
+            if (filename.endsWith(".jpg")) // extension was added to avoid compression on APK file
+                newFileName = TARGET_BASE_PATH + "/" + filename.substring(0, filename.length()-4);
+            else
+                newFileName = TARGET_BASE_PATH + "/" + filename;
+            out = new FileOutputStream(newFileName);
+
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+            in.close();
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            Log.e("tag", "Exception in copyFile() of "+newFileName);
+            Log.e("tag", "Exception in copyFile() "+e.toString());
+        }
+    }
+
+    public void resetFiles() {
+        copyFileOrDir(this.context.getFilesDir().toString(), "");
+    }
+
+    /*******
+     * XML *
+     *******/
+
+    public Document getDocumentXML(String xmlPath) throws Exception {
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        String contents = loadFile(xmlPath);
+        ByteArrayInputStream input = new ByteArrayInputStream(contents.getBytes(StandardCharsets.UTF_8));
+        Document doc = dBuilder.parse(input);
+        doc.getDocumentElement().normalize();
+        return doc;
+    }
+
+    public static String getContentXML(Element element, String tagName) {
+        return element.getElementsByTagName(tagName).item(0).getFirstChild().getNodeValue();
+    }
+
+    /************
+     * AUTOMATA *
+     ************/
+
+    public String getAutomataFolder(AutomataLight automata) {
+        return "automata_" + automata.getId() + "/";
+    }
+
+    public String getAutomatasFile(AutomataLight automataLight) {
+        return getAutomataFolder(automataLight) + AUTOMATA_CONFIG;
+    }
+
+    public String getMapFolder(AutomataLight automataLight, MapLight map) {
+        return getAutomataFolder(automataLight) + "map_" + map.getId() + ".txt";
+    }
+
+    public Document automataDocument(AutomataLight automataLight) {
+        try {
+            return this.getDocumentXML(getAutomatasFile(automataLight));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void saveAutomata(Automata automata) {
+        String content = automata.toXML();
+        String path = getAutomatasFile(automata.getAutomataLight());
+        writeFile(content, path);
+    }
+
     public List<AutomataLight> getAutomataLights() {
         List<AutomataLight> list = new ArrayList<>();
-        String file = loadFile("automata_ids.txt");
+        String file = loadFile(AUTOMATAS_FILE);
 
         final Pattern p = Pattern.compile("(\\d+) (.+)");
 
@@ -59,112 +234,15 @@ public class Persitance {
         return list;
     }
 
-    public Automata getAutomata(AutomataLight automataLight) {
+    /********
+     * MAPS *
+     ********/
 
-        boolean isDefault;
-        Cell[] cells;
-        Document doc;
-
-        try {
-            doc = getDocumentXML("automata_" + automataLight.getId() + "/config.xml");
-        }
-        catch (Exception e) {
-            return Automata.UNKNOWN_AUTOMATA;
-        }
-
-        Element element = (Element) doc.getElementsByTagName("automata").item(0);
-        NodeList cellsNode = element.getElementsByTagName("cell");
-
-        // creation of each cells to be later accessible
-        cells = new Cell[cellsNode.getLength()];
-        for (int i = 0 ; i < cellsNode.getLength() ; i++) {
-            Element c = (Element) cellsNode.item(i);
-            Cell cell = new Cell();
-            int id = Integer.parseInt(Persitance.getContentXML(c, "id"));
-            cells[id] = cell;
-            cell.setId(id);
-        }
-
-        // each cell configuration
-        for (int i = 0 ; i < cellsNode.getLength() ; i++) {
-            Element cell = (Element) cellsNode.item(i);
-
-            int cellId       = Integer.parseInt(Persitance.getContentXML(cell, "id"));
-            Cell workingCell = cells[cellId];
-
-            // name and color of this cell
-            workingCell.setName(Persitance.getContentXML(cell, "name"));
-            workingCell.setColor(Persitance.getContentXML(cell, "color"));
-            workingCell.setDefaultCell(Boolean.parseBoolean(Persitance.getContentXML(cell, "default")));
-
-            // neighbours ids to count
-            List<Cell> cellsToCount = workingCell.getCellsToCount();
-            NodeList neighourIdsToCount = cell.getElementsByTagName("neighbourIdToCount");
-            for (int j = 0 ; j < neighourIdsToCount.getLength() ; j++) {
-                int toCount = Integer.parseInt(neighourIdsToCount.item(j).getFirstChild().getNodeValue());
-                cellsToCount.add(cells[toCount]);
-            }
-
-            // neighbours coords
-            List<NeighborPos> neighborPos = workingCell.getNeighbours();
-            NodeList neighbourCoords = cell.getElementsByTagName("neighbourCoord");
-            for (int j = 0 ; j < neighbourCoords.getLength() ; j++) {
-                Element e = (Element) neighbourCoords.item(j);
-                int dX = Integer.parseInt(e.getAttribute("x"));
-                int dY = Integer.parseInt(e.getAttribute("y"));
-                neighborPos.add(new NeighborPos(dX, dY));
-            }
-
-            // transitions from this cell type to other types
-            NodeList transitions = cell.getElementsByTagName("transition");
-            Cell[] transitionsCells = new Cell[neighbourCoords.getLength() + 1];
-            for (int j = 0 ; j < transitions.getLength(); j++) {
-                Element e = (Element) transitions.item(j);
-                int nbNeighbours = Integer.parseInt(e.getAttribute("nbNeighbours"));
-                int becomeId = Integer.parseInt(e.getAttribute("become"));
-                transitionsCells[nbNeighbours] = cells[becomeId];
-            }
-            workingCell.setTransitions(transitionsCells);
-
-        }
-
-        isDefault = Boolean.parseBoolean(Persitance.getContentXML(element, "default"));
-
-        Automata automata = new Automata(automataLight, isDefault, Arrays.asList(cells));
-
-        // we set the origin automata of each cell
-        for(Cell c : automata.getCells()) {
-            c.setOriginAutomata(automata);
-        }
-        return automata;
+    public void saveMap(AutomataLight automataLight, Map map) {
+        String content = map.toFile();
+        String path = getMapFolder(automataLight, map.getMapLight());
+        writeFile(content, path);
     }
-
-//    public List<MapLight> getSpecificMapLights(AutomataLight automataLight) {
-//        Document doc;
-//        List<MapLight> mapLights = new ArrayList<>();
-//
-//        try {
-//            doc = getDocumentXML("automata_" + automataLight.getId() + "/maps.xml");
-//        }
-//        catch (Exception e) {
-//            // bouuuuh
-//            return null;
-//        }
-//
-//        NodeList maps = doc.getElementsByTagName("map");
-//
-//        // creation of each cells to be later accessible
-//        for (int i = 0 ; i < maps.getLength() ; i++) {
-//            Element c = (Element) maps.item(i);
-//            String name = Persitance.getContentXML(c, "name");
-//            int timestamp = Integer.parseInt(Persitance.getContentXML(c, "lastPlayed"));
-//            Date lastPlayed = new Date((long)timestamp*1000);
-//            String realFileName = "maps/" + Persitance.getContentXML(c, "realFileName") + ".map";
-//            mapLights.add(new MapLight(name, lastPlayed, realFileName));
-//        }
-//
-//        return mapLights;
-//    }
 
     public List<MapLight> getCompatibleMapLights(AutomataLight automataLight) {
         List<AutomataLight> als = this.getAutomataLights();
@@ -177,49 +255,10 @@ public class Persitance {
         return mapLights;
     }
 
-    public String loadFile(String inFile) {
-        String tContents = "";
-        try {
-            InputStream stream = this.assetManager.open(inFile);
-            int size = stream.available();
-            byte[] buffer = new byte[size];
-            stream.read(buffer);
-            stream.close();
-            tContents = new String(buffer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return tContents;
-    }
-
-    private Document getDocumentXML(String xmlPath) throws Exception {
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        String contents = loadFile(xmlPath);
-        ByteArrayInputStream input = new ByteArrayInputStream(contents.getBytes("UTF-8"));
-        Document doc = dBuilder.parse(input);
-        doc.getDocumentElement().normalize();
-        return doc;
-    }
-
-    private static String getContentXML(Element element, String tagName) {
-        return element.getElementsByTagName(tagName).item(0).getFirstChild().getNodeValue();
-    }
-
-    public void writeAutomata(Automata automata) {
-
-    }
-    
-    public void setAssetManager(AssetManager assetManager) {
-        this.assetManager = assetManager;
-    }
-
-
     // returns the maps of a particular automata
     public List<MapLight> getLightMaps(AutomataLight a) {
         final long id = a.getId();
-        final String path = "automata_" + id;
-        String mapFile = loadFile(path + "/maps.txt");
+        String mapFile = loadFile(getAutomataFolder(a) + "/" + MAPS_CONFIG);
         List<String> lines = new ArrayList<String>(
                 Arrays.asList(mapFile.split("\n"))
         );
@@ -227,8 +266,18 @@ public class Persitance {
         for (String line: lines) {
             String[] id_name = line.split(" ", 2);
             long mapid = Integer.parseInt(id_name[0]);
-            maps.add(new MapLight(mapid, id_name[1], path));
+            maps.add(new MapLight(mapid, id_name[1], getAutomataFolder(a)));
         }
         return maps;
     }
+
+
+    public void setAssetManager(AssetManager assetManager) {
+        this.assetManager = assetManager;
+    }
+
+    public void setContext(Context applicationContext) {
+        this.context = applicationContext;
+    }
+
 }

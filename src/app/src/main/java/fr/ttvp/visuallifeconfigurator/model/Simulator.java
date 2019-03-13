@@ -13,10 +13,12 @@ public class Simulator {
     private Cell[][] cells;
     private int nLines;
     private int nCols;
+    private MapLight mapLight;
     private SimulatorThread playingLoop;
 
     public Simulator(Automata automata, Map startingMap) {
 //        this.automata = automata;
+        this.mapLight = startingMap.getMapLight();
         this.nLines = startingMap.getLines();
         this.nCols = startingMap.getCols();
         this.cells = startingMap.forAutomata(automata);
@@ -86,7 +88,7 @@ public class Simulator {
     }
 
     public Map getMap() {
-        return Map.fromCells(nLines, nCols, cells);
+        return Map.fromCells(nLines, nCols, cells, mapLight);
     }
 
     // add a listener

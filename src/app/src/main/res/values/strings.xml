@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VisualLifeConfigurator</string>
+    <string name="app_name">Visual Life Configurator</string>
     <string name="title_activity_automata_home">AutomataHomeActivity</string>
     <string name="tab_cells">Cells</string>
     <string name="tab_configuration">Configuration</string>
@@ -36,4 +36,5 @@
     <string name="increase_size">Increase size</string>
     <string name="decrease_size">Decrease size</string>
     <string name="compatible_maps">Compatible maps:</string>
+    <string name="reset_default_games">Reset default games</string>
 </resources>

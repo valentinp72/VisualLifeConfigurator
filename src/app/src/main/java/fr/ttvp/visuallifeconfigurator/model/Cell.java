@@ -142,4 +142,24 @@ public class Cell implements Serializable {
     public void setNeighbours(List<NeighborPos> neighbours) {
         this.neighbours = neighbours;
     }
+
+    public String toXML() {
+        StringBuilder str = new StringBuilder();
+
+        str.append("    <cell>\n");
+        str.append("        <id>" + id + "</id>\n");
+        str.append("        <default>" + String.valueOf(defaultCell) + "</default>\n");
+        str.append("        <name>" + name + "</name>\n");
+        str.append("        <color>" + color + "</color>\n");
+
+        for(Cell c : cellsToCount)
+            str.append("        <neighbourIdToCount>" + c.id + "</neighbourIdToCount>\n");
+        for(int i = 0 ; i < transitions.length ; i++)
+            str.append("        <transition nbNeighbours=\"" + i + "\"" + " become=\"" + transitions[i].id + "\"/>\n");
+        for(NeighborPos neighborPos : neighbours)
+            str.append(neighborPos.toXML());
+        str.append("    </cell>\n");
+
+        return str.toString();
+    }
 }

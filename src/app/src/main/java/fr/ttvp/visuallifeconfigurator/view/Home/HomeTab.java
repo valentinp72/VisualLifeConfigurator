@@ -71,7 +71,10 @@ public abstract class HomeTab extends Fragment {
             if(requestCode == EDITED_CELL) {
                 Cell c = (Cell) data.getSerializableExtra("cell");
                 automata.replaceCell(c);
-                // TODO: automata.save();
+                automata.save();
+            }
+            else if(requestCode == EDITED_MAPS) {
+                //map.save(automata.getAutomataLight());
             }
             for(HomeTab tab : tabs)
                 tab.initView();

@@ -3,6 +3,9 @@ package fr.ttvp.visuallifeconfigurator.model;
 import java.io.Serializable;
 
 public class MapLight implements Serializable {
+
+    public static long idTotal = 0;
+
     private String name;
     private String path;
     private long id;
@@ -11,11 +14,11 @@ public class MapLight implements Serializable {
         this.name = name;
         this.path = path + "/map_" + id + ".txt";
         this.id = id;
+        idTotal = idTotal + 1;
     }
 
-
     public Map getMap() {
-        return Map.fromFile(path, id);
+        return Map.fromFile(path, id, this);
     }
 
     public void setPath(String path) {
@@ -30,39 +33,8 @@ public class MapLight implements Serializable {
     public String getName() {
         return name;
     }
+
+    public long getId() {
+        return id;
+    }
 }
-// import java.io.Serializable;
-// import java.util.Date;
-
-// public class MapLight implements Serializable {
-
-//     private String name;
-//     private Date lastPlayed;
-//     private String realFileName;
-
-//     public MapLight(String name, Date lastPlayed, String realFileName) {
-//         this.name = name;
-//         this.lastPlayed = lastPlayed;
-//         this.realFileName = realFileName;
-//     }
-
-//     public Map getRealMap() {
-//         return Map.fromFile(this.realFileName);
-//     }
-
-//     public Date getLastPlayed() {
-//         return lastPlayed;
-//     }
-
-//     public void setLastPlayed(Date lastPlayed) {
-//         this.lastPlayed = lastPlayed;
-//     }
-
-//     public String getName() {
-//         return name;
-//     }
-
-//     public void setName(String name) {
-//         this.name = name;
-//     }
-// }
