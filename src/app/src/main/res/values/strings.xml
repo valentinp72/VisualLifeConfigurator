@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VisualLifeConfigurator</string>
+    <string name="app_name">Visual Life Configurator</string>
     <string name="title_activity_automata_home">AutomataHomeActivity</string>
     <string name="tab_cells">Cells</string>
     <string name="tab_configuration">Configuration</string>

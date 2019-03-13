@@ -187,12 +187,16 @@ public class Persitance {
      * AUTOMATA *
      ************/
 
-    private String getAutomataFolder(AutomataLight automata) {
+    public String getAutomataFolder(AutomataLight automata) {
         return "automata_" + automata.getId() + "/";
     }
 
-    private String getAutomatasFile(AutomataLight automataLight) {
+    public String getAutomatasFile(AutomataLight automataLight) {
         return getAutomataFolder(automataLight) + AUTOMATA_CONFIG;
+    }
+
+    public String getMapFolder(AutomataLight automataLight, MapLight map) {
+        return getAutomataFolder(automataLight) + "map_" + map.getId() + ".txt";
     }
 
     public Document automataDocument(AutomataLight automataLight) {
@@ -233,6 +237,12 @@ public class Persitance {
     /********
      * MAPS *
      ********/
+
+    public void saveMap(AutomataLight automataLight, Map map) {
+        String content = map.toFile();
+        String path = getMapFolder(automataLight, map.getMapLight());
+        writeFile(content, path);
+    }
 
     public List<MapLight> getCompatibleMapLights(AutomataLight automataLight) {
         List<AutomataLight> als = this.getAutomataLights();

@@ -4,28 +4,30 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class Map implements Serializable {
     private int[][] indexes;
     private int nLine;
     private int nCol;
-    private long id = -1;
+    private MapLight mapLight;
 
-    public Map(int nLine, int nCol, int[][] indexes) {
+    public Map(int nLine, int nCol, int[][] indexes, MapLight mapLight) {
         this.nLine = nLine;
         this.nCol = nCol;
         this.indexes = indexes;
+        this.mapLight = mapLight;
     }
 
-    public static Map fromCells(int nLine, int nCol, Cell[][] cells) {
+    public static Map fromCells(int nLine, int nCol, Cell[][] cells, MapLight mapLight) {
         int[][] indexes = new int[nLine][nCol];
         for (int i = 0; i < nLine; i++)
             for (int j = 0; j < nCol; j++)
                 indexes[i][j] = cells[i][j].getId();
-        return new Map(nLine, nCol, indexes);
+        return new Map(nLine, nCol, indexes, mapLight);
     }
 
-    public static Map fromFile(String filename, long id) {
+    public static Map fromFile(String filename, long id, MapLight mapLight) {
         Persitance p = Persitance.getInstance();
         List<String> lines = new ArrayList<String>(
                 Arrays.asList(p.loadFile(filename).split("\n"))
@@ -42,10 +44,32 @@ public class Map implements Serializable {
                 indexes[i][j] = Integer.parseInt(line[j]);
             }
         }
-        Map m = new Map(nLine, nCol, indexes);
-        m.id = id;
+        Map m = new Map(nLine, nCol, indexes, mapLight);
 
         return m;
+    }
+
+    public String toFile() {
+        StringBuilder str = new StringBuilder();
+
+        str.append(nLine + " " + nCol + "\n");
+        for(int i = 0 ; i < nLine ; i++) {
+            for(int j = 0 ; j < nCol ; j++)
+                str.append(indexes[i][j] + " ");
+            str.append("\n");
+        }
+
+        return str.toString();
+    }
+
+    public static Map fromRandom(Automata a, int nLine, int nCol, MapLight mapLight) {
+        List<Cell> allCells = a.getCells();
+        Random rand = new Random();
+        Cell[][] cells = new Cell[nLine][nCol];
+        for(int i = 0 ; i < nLine ; i++)
+            for(int j = 0 ; j < nCol ; j++)
+                cells[i][j] = allCells.get(rand.nextInt(allCells.size()));
+        return Map.fromCells(nLine, nCol, cells, mapLight);
     }
 
     public Cell[][] forAutomata(Automata a) {
@@ -98,5 +122,13 @@ public class Map implements Serializable {
     }
     public int getLines() {
         return nLine;
+    }
+
+    public void save(AutomataLight automataLight) {
+        Persitance.getInstance().saveMap(automataLight, this);
+    }
+
+    public MapLight getMapLight() {
+        return mapLight;
     }
 }
