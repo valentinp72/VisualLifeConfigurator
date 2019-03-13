@@ -56,6 +56,7 @@ public class Map implements Serializable {
         for(int i = 0 ; i < nLine ; i++) {
             for(int j = 0 ; j < nCol ; j++)
                 str.append(indexes[i][j] + " ");
+            str.setLength(str.length() - 1);
             str.append("\n");
         }
 

@@ -61,6 +61,10 @@ public class Persitance {
     public void writeFile(String data, String path) {
         try {
             File file = new File(getDevicePath(path));
+            File parent = file.getParentFile();
+            if (!parent.exists() && !parent.mkdirs()) {
+                throw new IllegalStateException("Couldn't create dir: " + parent);
+            }
             FileOutputStream fileOutput = new FileOutputStream(file);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutput);
             outputStreamWriter.write(data);
@@ -215,6 +219,20 @@ public class Persitance {
         writeFile(content, path);
     }
 
+    public void addAutomataLight(AutomataLight automataLight) {
+        List<AutomataLight> list = getAutomataLights();
+        list.add(automataLight);
+        StringBuilder content = new StringBuilder();
+        for(AutomataLight al : list) {
+            content.append(al.getId() + " " + al.getName() + "\n");
+        }
+        // remove last char
+        content.setLength(content.length() - 1);
+        writeFile(content.toString(), AUTOMATAS_FILE);
+
+        writeFile("", getAutomataFolder(automataLight) + "/" + MAPS_CONFIG);
+    }
+
     public List<AutomataLight> getAutomataLights() {
         List<AutomataLight> list = new ArrayList<>();
         String file = loadFile(AUTOMATAS_FILE);
@@ -259,16 +277,20 @@ public class Persitance {
     public List<MapLight> getLightMaps(AutomataLight a) {
         final long id = a.getId();
         String mapFile = loadFile(getAutomataFolder(a) + "/" + MAPS_CONFIG);
-        List<String> lines = new ArrayList<String>(
-                Arrays.asList(mapFile.split("\n"))
-        );
-        List<MapLight> maps = new ArrayList<MapLight>();
-        for (String line: lines) {
-            String[] id_name = line.split(" ", 2);
-            long mapid = Integer.parseInt(id_name[0]);
-            maps.add(new MapLight(mapid, id_name[1], getAutomataFolder(a)));
+        if(mapFile.length() > 0) {
+            List<String> lines = new ArrayList<String>(
+                    Arrays.asList(mapFile.split("\n"))
+            );
+            List<MapLight> maps = new ArrayList<MapLight>();
+            for (String line: lines) {
+                String[] id_name = line.split(" ", 2);
+                long mapid = Integer.parseInt(id_name[0]);
+                maps.add(new MapLight(mapid, id_name[1], getAutomataFolder(a)));
+            }
+            return maps;
         }
-        return maps;
+        else
+            return new ArrayList<>();
     }
 
 

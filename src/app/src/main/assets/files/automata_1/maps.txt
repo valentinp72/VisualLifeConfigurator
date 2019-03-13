@@ -1,1 +1,2 @@
 0 XOR gate
+1 Diodes
