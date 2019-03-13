@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         AssetManager assetManager = getAssets();
         Persitance persitance = Persitance.getInstance();
         persitance.setAssetManager(assetManager);
+        persitance.setContext(getApplicationContext());
 
         mRecyclerView.setAdapter(new AutomataRecyclerViewAdapter(persitance.getAutomataLights()));
 

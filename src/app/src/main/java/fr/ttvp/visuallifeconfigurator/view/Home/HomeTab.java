@@ -71,6 +71,7 @@ public abstract class HomeTab extends Fragment {
             if(requestCode == EDITED_CELL) {
                 Cell c = (Cell) data.getSerializableExtra("cell");
                 automata.replaceCell(c);
+                automata.save();
                 // TODO: automata.save();
             }
             for(HomeTab tab : tabs)

@@ -21,7 +21,7 @@ public class AutomataLight implements Serializable {
     }
 
     public Automata getRealAutomata() {
-        return Persitance.getInstance().getAutomata(this);
+        return Automata.fromXML(this);
     }
 
     public String getName() {

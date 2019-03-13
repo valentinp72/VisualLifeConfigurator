@@ -36,4 +36,12 @@ public class NeighborPos implements Serializable {
         }
         return false;
     }
+
+    public String toXML() {
+        StringBuilder str = new StringBuilder();
+
+        str.append("        <neighbourCoord x=\"" + deltaX + "\" y=\"" + deltaY + "\"/>\n");
+
+        return str.toString();
+    }
 }
