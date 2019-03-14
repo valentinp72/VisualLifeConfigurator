@@ -124,11 +124,11 @@ public class MapPlayingActivity extends CustomActivity {
     }
 
     public void clickSmaller(MenuItem item) {
-        map.smaller();
+        simulator.smaller();
     }
 
     public void clickBigger(MenuItem item) {
-        map.bigger();
+        simulator.bigger();
     }
 
     public void clickSpace(MenuItem item) {

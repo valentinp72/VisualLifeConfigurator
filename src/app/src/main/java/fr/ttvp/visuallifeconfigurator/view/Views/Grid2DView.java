@@ -38,7 +38,7 @@ public class Grid2DView extends View implements SimulatorListener {
 
     @Override
     public void onSizeChanged(int width, int height, int oldWidth, int oldHeight) {
-        this.currentMap.setWidthHeightRatio(width / height);
+        this.simulator.setWidthHeightRatio((float) width / (float)height);
         this.redraw();
     }
 

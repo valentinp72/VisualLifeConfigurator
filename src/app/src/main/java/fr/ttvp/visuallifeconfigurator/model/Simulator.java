@@ -10,22 +10,44 @@ public class Simulator {
 
     //    private Automata automata;
     private List<SimulatorListener> listeners;
-    private Cell[][] cells;
+    private List<List<Cell>> cells = new ArrayList<List<Cell>>();
+    private Cell defaultCell;
     private int nLines;
     private int nCols;
     private MapLight mapLight;
     private SimulatorThread playingLoop;
+    private float goalRatio = 1;
+    private float ratio;
 
     public Simulator(Automata automata, Map startingMap) {
 //        this.automata = automata;
         this.mapLight = startingMap.getMapLight();
         this.nLines = startingMap.getLines();
         this.nCols = startingMap.getCols();
-        this.cells = startingMap.forAutomata(automata);
+        Cell[][] tabcell = startingMap.forAutomata(automata);
+
         this.listeners = new ArrayList<>();
         this.playingLoop = new SimulatorThread(this);
         this.playingLoop.start();
+
+        for (int i = 0; i < this.nLines; i++) {
+            List<Cell> l = new ArrayList<Cell>();
+            for (int j = 0; j < this.nCols; j++) {
+                l.add(tabcell[i][j]);
+            }
+            cells.add(l);
+        }
+
+
+        for (Cell c: automata.getCells()) {
+            if (c.isDefaultCell()) this.defaultCell = c;
+        }
     }
+
+    private void calcRatio() {
+        this.ratio = (float) nCols / (float) nLines;
+    }
+
 
     public void step() {
         final List<Command> cmds = new ArrayList<>();
@@ -50,7 +72,7 @@ public class Simulator {
     }
 
     private void addCommand(List<Command> cmds, int line, int col) {
-        final Cell cell = this.cells[line][col];
+        final Cell cell = this.cells.get(line).get(col);
         final List<Cell> toCount = cell.getCellsToCount();
         final List<NeighborPos> neighs = cell.getNeighbours();
 
@@ -58,7 +80,7 @@ public class Simulator {
         for (NeighborPos neigh : neighs) {
             final int nl = getLine(line + neigh.getDeltaY());
             final int nc = getCol(col + neigh.getDeltaX());
-            final Cell cur = this.cells[nl][nc];
+            final Cell cur = this.cells.get(nl).get(nc);
             for (Cell c: toCount) {
                 if (c.getId() == cur.getId()) {
                     neighborCounter += 1;
@@ -88,7 +110,14 @@ public class Simulator {
     }
 
     public Map getMap() {
-        return Map.fromCells(nLines, nCols, cells, mapLight);
+        Cell[][] mat = new Cell[nLines][nCols];
+        for (int i = 0; i < nLines; i++) {
+
+            for (int j = 0; j < nCols; j++) {
+                mat[i][j] = cells.get(i).get(j);
+            }
+        }
+        return Map.fromCells(nLines, nCols, mat, mapLight);
     }
 
     // add a listener
@@ -108,4 +137,50 @@ public class Simulator {
         }
     }
 
+    // le ratio augmente avec la largeur
+    public void setWidthHeightRatio(float ratio) {
+        this.goalRatio = ratio;
+    }
+
+    public void bigger() {
+        calcRatio();
+        if (this.ratio < this.goalRatio) {
+            this.addColumn();
+        } else this.addLine();
+    }
+
+    public void smaller() {
+        // TODO: réduire la taille de la map tout en suivant le ratio
+        calcRatio();
+        if (this.ratio < this.goalRatio) {
+            this.removeLine();
+        } else this.removeColumn();
+    }
+
+    private void removeColumn() {
+        if (nCols == 1) return;
+        nCols -= 1;
+        for (List<Cell> line : cells) {
+            line.remove(nCols);
+        }
+    }
+    private void removeLine() {
+        if (nLines == 1) return;
+        nLines -= 1;
+        cells.remove(nLines);
+    }
+    private void addColumn() {
+        for (List<Cell> line : cells) {
+            line.add(defaultCell);
+        }
+        nCols += 1;
+    }
+    private void addLine() {
+        List<Cell> l = new ArrayList<Cell>();
+        for (int i = 0; i < nCols; i++) {
+            l.add(defaultCell);
+        }
+        cells.add(l);
+        nLines += 1;
+    }
 }
