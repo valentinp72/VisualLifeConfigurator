@@ -10,16 +10,13 @@ import java.util.List;
 import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Automata;
 import fr.ttvp.visuallifeconfigurator.model.AutomataLight;
-import fr.ttvp.visuallifeconfigurator.model.Cell;
-import fr.ttvp.visuallifeconfigurator.model.Map;
 import fr.ttvp.visuallifeconfigurator.model.MapLight;
-import fr.ttvp.visuallifeconfigurator.model.Persitance;
-import fr.ttvp.visuallifeconfigurator.view.Activities.CustomActivity;
+import fr.ttvp.visuallifeconfigurator.model.Persistance;
 import fr.ttvp.visuallifeconfigurator.view.Views.MapCard;
 
 public class SavedMapsActivity extends CustomActivity {
 
-    private Persitance persitance;
+    private Persistance persistance;
     private Automata automata;
 
     private LinearLayout specific;
@@ -38,7 +35,7 @@ public class SavedMapsActivity extends CustomActivity {
 
     @Override
     protected void initComponents() {
-        this.persitance = Persitance.getInstance();
+        this.persistance = Persistance.getInstance();
         this.fab = findViewById(R.id.saved_map_create);
         this.specific = findViewById(R.id.saved_map_layout);
         this.compatible = findViewById(R.id.saved_map_layout_compatible);
@@ -57,7 +54,7 @@ public class SavedMapsActivity extends CustomActivity {
         this.specific.removeAllViews();
         this.compatible.removeAllViews();
 
-        Persitance persistance = Persitance.getInstance();
+        Persistance persistance = Persistance.getInstance();
         AutomataLight automataLight = automata.getAutomataLight();
         List<MapLight> mapLights = persistance.getLightMaps(automataLight);
         List<MapLight> compatibleMapLights = persistance.getCompatibleMapLights(automataLight);

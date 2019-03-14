@@ -1,10 +1,14 @@
-package fr.ttvp.visuallifeconfigurator.model;
-
-import android.os.Build;
-import android.support.annotation.RequiresApi;
+package fr.ttvp.visuallifeconfigurator.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.ttvp.visuallifeconfigurator.model.Automata;
+import fr.ttvp.visuallifeconfigurator.model.Cell;
+import fr.ttvp.visuallifeconfigurator.model.Command;
+import fr.ttvp.visuallifeconfigurator.model.Map;
+import fr.ttvp.visuallifeconfigurator.model.MapLight;
+import fr.ttvp.visuallifeconfigurator.model.NeighborPos;
 
 public class Simulator {
 

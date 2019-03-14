@@ -28,7 +28,7 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class Persitance {
+public class Persistance {
 
     private final static String OUTPUT_FOLDER   = "files";
     private final static String AUTOMATAS_FILE  = "automata_ids.txt";
@@ -36,17 +36,17 @@ public class Persitance {
     private final static String AUTOMATA_CONFIG = "config.xml";
     private final static String MAPS_CONFIG      = "maps.txt";
 
-    private static Persitance instance;
+    private static Persistance instance;
     private AssetManager assetManager;
     private Context context;
 
-    private Persitance() {
+    private Persistance() {
 
     }
 
-    public static Persitance getInstance() {
+    public static Persistance getInstance() {
         if(instance == null)
-            instance = new Persitance();
+            instance = new Persistance();
         return instance;
     }
 

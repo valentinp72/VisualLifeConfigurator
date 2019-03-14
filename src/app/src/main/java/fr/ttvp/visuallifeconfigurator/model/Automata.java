@@ -56,7 +56,7 @@ public class Automata implements Serializable {
     }
 
     public List<MapLight> getLightMaps() {
-        return Persitance.getInstance().getLightMaps(this.automataLight);
+        return Persistance.getInstance().getLightMaps(this.automataLight);
     }
 
     public String toXML() {
@@ -78,10 +78,10 @@ public class Automata implements Serializable {
     }
 
     public static Automata fromXML(AutomataLight automataLight) {
-        Persitance persitance = Persitance.getInstance();
+        Persistance persistance = Persistance.getInstance();
         boolean isDefault;
         Cell[] cells;
-        Document doc = persitance.automataDocument(automataLight);
+        Document doc = persistance.automataDocument(automataLight);
 
         Element element = (Element) doc.getElementsByTagName("automata").item(0);
         NodeList cellsNode = element.getElementsByTagName("cell");
@@ -91,7 +91,7 @@ public class Automata implements Serializable {
         for (int i = 0 ; i < cellsNode.getLength() ; i++) {
             Element c = (Element) cellsNode.item(i);
             Cell cell = new Cell();
-            int id = Integer.parseInt(Persitance.getContentXML(c, "id"));
+            int id = Integer.parseInt(Persistance.getContentXML(c, "id"));
             cells[id] = cell;
             cell.setId(id);
         }
@@ -100,13 +100,13 @@ public class Automata implements Serializable {
         for (int i = 0 ; i < cellsNode.getLength() ; i++) {
             Element cell = (Element) cellsNode.item(i);
 
-            int cellId       = Integer.parseInt(Persitance.getContentXML(cell, "id"));
+            int cellId       = Integer.parseInt(Persistance.getContentXML(cell, "id"));
             Cell workingCell = cells[cellId];
 
             // name and color of this cell
-            workingCell.setName(Persitance.getContentXML(cell, "name"));
-            workingCell.setColor(Persitance.getContentXML(cell, "color"));
-            workingCell.setDefaultCell(Boolean.parseBoolean(Persitance.getContentXML(cell, "default")));
+            workingCell.setName(Persistance.getContentXML(cell, "name"));
+            workingCell.setColor(Persistance.getContentXML(cell, "color"));
+            workingCell.setDefaultCell(Boolean.parseBoolean(Persistance.getContentXML(cell, "default")));
 
             // neighbours ids to count
             List<Cell> cellsToCount = workingCell.getCellsToCount();
@@ -139,7 +139,7 @@ public class Automata implements Serializable {
 
         }
 
-        isDefault = Boolean.parseBoolean(Persitance.getContentXML(element, "default"));
+        isDefault = Boolean.parseBoolean(Persistance.getContentXML(element, "default"));
 
         Automata automata = new Automata(automataLight, isDefault, Arrays.asList(cells));
 
@@ -151,6 +151,6 @@ public class Automata implements Serializable {
     }
 
     public void save() {
-        Persitance.getInstance().saveAutomata(this);
+        Persistance.getInstance().saveAutomata(this);
     }
 }

@@ -7,14 +7,10 @@ import android.graphics.Paint;
 import android.support.design.widget.BottomNavigationView;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import fr.ttvp.visuallifeconfigurator.model.Automata;
-import fr.ttvp.visuallifeconfigurator.model.Cell;
 import fr.ttvp.visuallifeconfigurator.model.Map;
-import fr.ttvp.visuallifeconfigurator.model.Simulator;
-import fr.ttvp.visuallifeconfigurator.model.SimulatorListener;
+import fr.ttvp.visuallifeconfigurator.controller.Simulator;
+import fr.ttvp.visuallifeconfigurator.controller.SimulatorListener;
 
 public class Grid2DView extends View implements SimulatorListener {
 

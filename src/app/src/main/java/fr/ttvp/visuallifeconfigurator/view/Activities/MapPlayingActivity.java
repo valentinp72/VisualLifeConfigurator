@@ -1,24 +1,16 @@
 package fr.ttvp.visuallifeconfigurator.view.Activities;
 
-import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuView;
-import android.support.v7.widget.Toolbar;
-import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.GridView;
 
 import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Automata;
 import fr.ttvp.visuallifeconfigurator.model.Map;
 import fr.ttvp.visuallifeconfigurator.model.MapLight;
-import fr.ttvp.visuallifeconfigurator.model.Simulator;
+import fr.ttvp.visuallifeconfigurator.controller.Simulator;
 import fr.ttvp.visuallifeconfigurator.view.Views.Grid2DView;
 
 public class MapPlayingActivity extends CustomActivity {

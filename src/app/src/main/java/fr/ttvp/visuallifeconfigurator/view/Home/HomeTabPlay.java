@@ -9,7 +9,7 @@ import java.util.UUID;
 import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Map;
 import fr.ttvp.visuallifeconfigurator.model.MapLight;
-import fr.ttvp.visuallifeconfigurator.model.Persitance;
+import fr.ttvp.visuallifeconfigurator.model.Persistance;
 import fr.ttvp.visuallifeconfigurator.view.Activities.MapPlayingActivity;
 import fr.ttvp.visuallifeconfigurator.view.Activities.SavedMapsActivity;
 
@@ -42,7 +42,7 @@ public class HomeTabPlay extends HomeTab {
                 MapLight mapLight = new MapLight(
                         MapLight.idTotal++,
                         UUID.randomUUID().toString().substring(0, 5),
-                        Persitance.getInstance().getAutomataFolder(automata.getAutomataLight()));
+                        Persistance.getInstance().getAutomataFolder(automata.getAutomataLight()));
                 Map map = Map.fromRandom(automata, 40, 30, mapLight);
                 map.save(automata.getAutomataLight());
                 intent.putExtra(MapPlayingActivity.ARG_MAP, mapLight);

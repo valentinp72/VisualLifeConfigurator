@@ -28,7 +28,7 @@ public class Map implements Serializable {
     }
 
     public static Map fromFile(String filename, long id, MapLight mapLight) {
-        Persitance p = Persitance.getInstance();
+        Persistance p = Persistance.getInstance();
         List<String> lines = new ArrayList<String>(
                 Arrays.asList(p.loadFile(filename).split("\n"))
         );
@@ -111,7 +111,7 @@ public class Map implements Serializable {
     }
 
     public void save(AutomataLight automataLight) {
-        Persitance.getInstance().saveMap(automataLight, this);
+        Persistance.getInstance().saveMap(automataLight, this);
     }
 
     public MapLight getMapLight() {

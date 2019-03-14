@@ -1,4 +1,4 @@
-package fr.ttvp.visuallifeconfigurator.model;
+package fr.ttvp.visuallifeconfigurator.controller;
 
 public class SimulatorThread extends Thread {
 

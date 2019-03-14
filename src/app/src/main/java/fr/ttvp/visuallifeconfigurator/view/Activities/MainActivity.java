@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,7 @@ import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Automata;
 import fr.ttvp.visuallifeconfigurator.model.AutomataLight;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
-import fr.ttvp.visuallifeconfigurator.model.Persitance;
+import fr.ttvp.visuallifeconfigurator.model.Persistance;
 import fr.ttvp.visuallifeconfigurator.view.Adapters.AutomataRecyclerViewAdapter;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 AutomataLight automataLight = new AutomataLight(UUID.randomUUID().toString().substring(0, 5));
                 Automata automata = new Automata(automataLight, false, cells);
                 automata.save();
-                Persitance.getInstance().addAutomataLight(automataLight);
+                Persistance.getInstance().addAutomataLight(automataLight);
                 init();
             }
         });
@@ -57,11 +56,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void init() {
         AssetManager assetManager = getAssets();
-        Persitance persitance = Persitance.getInstance();
-        persitance.setAssetManager(assetManager);
-        persitance.setContext(getApplicationContext());
+        Persistance persistance = Persistance.getInstance();
+        persistance.setAssetManager(assetManager);
+        persistance.setContext(getApplicationContext());
 
-        mRecyclerView.setAdapter(new AutomataRecyclerViewAdapter(persitance.getAutomataLights()));
+        mRecyclerView.setAdapter(new AutomataRecyclerViewAdapter(persistance.getAutomataLights()));
     }
 
     @Override
@@ -75,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_reset) {
-            Persitance.getInstance().resetFiles();
+            Persistance.getInstance().resetFiles();
             init();
         }
 

@@ -6,47 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".view.Activities.ConfigurationActivity">
 
-    <LinearLayout
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:layout_marginTop="20dp"
-                android:id="@+id/cell_configuration_expl"
-                android:text="@string/cell_configuration_expl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
             <LinearLayout
-                android:id="@+id/cell_configuration_selected"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/cell_configuration_expl"
+                    android:text="@string/cell_configuration_expl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:id="@+id/cell_configuration_selected"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </LinearLayout>
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="?android:attr/listDivider" />
             </LinearLayout>
-            <View
-                android:id="@+id/divider"
+
+            <LinearLayout
+                android:id="@+id/cell_configuration_list"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="?android:attr/listDivider" />
-        </LinearLayout>
+                android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/cell_configuration_list"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
 </android.support.design.widget.CoordinatorLayout>
