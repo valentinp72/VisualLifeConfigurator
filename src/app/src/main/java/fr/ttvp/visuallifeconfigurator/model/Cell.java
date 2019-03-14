@@ -28,6 +28,7 @@ public class Cell implements Serializable {
         this.defaultCell  = false;
         this.neighbours   = new ArrayList<>();
         this.cellsToCount = new ArrayList<>();
+        this.transitions  = new Cell[0];
     }
 
     public String toString() {

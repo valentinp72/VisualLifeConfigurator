@@ -5,6 +5,9 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.ttvp.visuallifeconfigurator.view.Views.AutomataCellInListView;
 import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
@@ -32,8 +35,17 @@ public class HomeTabCells extends HomeTab {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                List<Cell> cells = new ArrayList<>(automata.getCells());
+                Cell cell = new Cell();
+                cell.setOriginAutomata(automata);
+                cell.setId(automata.getCells().size());
+                cells.add(cell);
+                automata.setCells(cells);
+                automata.save();
+                // TODO: revoir ce problème
+                AutomataHome automataHome = (AutomataHome) getActivity();
+                automataHome.init();
+                initView();
             }
         });
 

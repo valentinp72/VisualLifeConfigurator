@@ -24,10 +24,14 @@ public class AutomataHome extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_automata_home);
+        init();
+    }
 
+    public void init() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         tabsAdapter = new TabsAdapter(this, getSupportFragmentManager());
@@ -44,6 +48,7 @@ public class AutomataHome extends AppCompatActivity implements Serializable {
         automata = ((AutomataLight) getIntent().getSerializableExtra("AutomataLight")).getRealAutomata();
 
         toolbar.setTitle(automata.getName());
+
     }
 
     @Override
