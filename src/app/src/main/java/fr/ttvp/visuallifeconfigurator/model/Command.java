@@ -1,5 +1,7 @@
 package fr.ttvp.visuallifeconfigurator.model;
 
+import java.util.List;
+
 public class Command {
     private int line;
     private int col;
@@ -11,7 +13,7 @@ public class Command {
         this.cell = cell;
     }
 
-    public void apply(Cell[][] cells) {
-        cells[line][col] = this.cell;
+    public void apply(List<List<Cell>> cells) {
+        cells.get(line).set(col, this.cell);
     }
 }
