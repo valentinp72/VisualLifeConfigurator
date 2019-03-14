@@ -215,6 +215,7 @@ public class Persitance {
 
     public void saveAutomata(Automata automata) {
         String content = automata.toXML();
+        System.out.println(content);
         String path = getAutomatasFile(automata.getAutomataLight());
         writeFile(content, path);
     }

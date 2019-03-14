@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.ttvp.visuallifeconfigurator.model.NeighborPos;
 import fr.ttvp.visuallifeconfigurator.view.Views.AutomataCellInListView;
 import fr.ttvp.visuallifeconfigurator.R;
 import fr.ttvp.visuallifeconfigurator.model.Cell;
@@ -39,12 +40,16 @@ public class HomeTabCells extends HomeTab {
                 Cell cell = new Cell();
                 cell.setOriginAutomata(automata);
                 cell.setId(automata.getCells().size());
+                Cell[] transitions = {cell, cell};
+                cell.setTransitions(transitions);
+                NeighborPos neighborPos = new NeighborPos(0, 0);
+                cell.getNeighbours().add(neighborPos);
                 cells.add(cell);
                 automata.setCells(cells);
                 automata.save();
-                // TODO: revoir ce problème
+                ///// TODO: revoir ce problème
                 AutomataHome automataHome = (AutomataHome) getActivity();
-                automataHome.init();
+                automataHome.recreate();
                 initView();
             }
         });
